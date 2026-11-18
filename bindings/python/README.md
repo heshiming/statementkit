@@ -1,10 +1,12 @@
 # Python binding — implemented (ctypes)
 
 `statementkit` is a zero-dependency ctypes shim over the C ABI. Published
-on PyPI as a wheel with the native library bundled; `pip install
-statementkit`. For in-repo development: `cargo build --release -p
-statementkit-c` (auto-found in `target/release`, override with
-`$STATEMENTKIT_LIB`).
+on PyPI; `pip install statementkit`. Binary wheels ship the native library
+bundled for Linux (x86_64, aarch64) and Windows (win_amd64); on macOS the
+same install builds the library from the sdist, which needs a Rust
+toolchain (`cargo`) and the Xcode command line tools on PATH. For in-repo
+development: `cargo build --release -p statementkit-c` (auto-found in
+`target/release`, override with `$STATEMENTKIT_LIB`).
 
 Independent tool. Not affiliated with or endorsed by Interactive Brokers
 LLC.
