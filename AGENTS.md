@@ -52,6 +52,14 @@ ABI boundary, language bindings layered on top.
   between bindings is a bug, so every suite runs the shared vectors in
   `tests/vectors/`. New Rust binding crates go in
   `crates/statementkit-<lang>`.
+- Binding cadence: develop in Rust only. Logic changes behind an existing
+  ABI entry point touch no binding — append the shared vectors instead.
+  Keep an unstable extractor out of the C ABI until its output shape is
+  settled; when it graduates, land ABI + header + vectors + all four
+  shells in one commit (port order: python, then go/node/java).
+- Test fixtures (mock CSVs, vectors) live only in the root `tests/` tree.
+  Bindings never hold copies; binding tests reference the root files by
+  relative path. A fixture copy in a binding is a bug.
 
 ## Rust rules
 
