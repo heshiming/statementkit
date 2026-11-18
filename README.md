@@ -20,10 +20,13 @@ exports; expect additive APIs at `0.x`.
 crates/statementkit      core: pure functions, no I/O, no FFI types
 crates/statementkit-c    C ABI: status codes, out-params, panic-proofed
   include/statementkit.h hand-kept header; discriminants contractual
-bindings/python          reserved: pyo3+maturin crate (ctypes interim)
-bindings/node            reserved: wasm-bindgen / napi, generated .d.ts
-bindings/java            reserved: Panama FFM (java.lang.foreign), JNI fallback
+bindings/python          ctypes shim over the C ABI (pyo3 wheels later)
+bindings/node            raw-WASM npm package, TypeScript types included
+bindings/java            Panama FFM (java.lang.foreign), JDK 22+, no JNI
+bindings/go              cgo over the static lib, plain `go test ./...`
+tests/vectors/           shared ground-truth vectors every binding runs
 scripts/c-smoke.sh       links tests/smoke.c against the static lib, runs it
+scripts/bindings-test.sh builds all targets, runs every binding suite
 ```
 
 All parsing logic lives in the core crate only. A binding that
@@ -34,6 +37,7 @@ re-implements logic, or behaves differently from another binding, is a bug.
 ```sh
 cargo test --workspace        # core unit + integration + FFI tests
 scripts/c-smoke.sh            # builds release static lib, compiles and runs C smoke
+scripts/bindings-test.sh      # python + go + node + java suites vs shared vectors
 ```
 
 C usage:

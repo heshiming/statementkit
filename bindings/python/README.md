@@ -1,12 +1,21 @@
-# Python binding (reserved)
+# Python binding — implemented (ctypes)
 
-Plan, in order of arrival:
+`statementkit.py` is a zero-dependency ctypes shim over the C ABI. Requires
+the built library: `cargo build --release -p statementkit-c` (auto-found in
+`target/release`, override with `$STATEMENTKIT_LIB`).
 
-1. Interim, zero build tooling: `ctypes` over the shared library produced
-   by `cargo build -p statementkit-c` (`libstatementkit_c.so` / `.dylib` /
-   `.dll`), mirroring `include/statementkit.h`.
-2. Real package: `crates/statementkit-python` (pyo3 + maturin), wheels on
-   PyPI. Exceptions map from `SkStatus`.
+```python
+import statementkit
+statementkit.parse_float("12.25")   # 12.25
+statementkit.parse_float("1,2")     # raises InvalidInputError
+statementkit.version()              # "0.1.0"
+```
 
-Rules: thin shell only — no parsing logic here; every core test vector is
-re-run through the binding so behavior cannot drift.
+Errors mirror the ABI status codes: `NullInputError`, `EmptyInputError`,
+`InvalidInputError`, `PanicError` (all `StatementKitError` subclasses with
+`.code`).
+
+Test: `python3 test_parse_float.py` (shared vectors from `tests/vectors/`).
+
+Next stage when the API is real: `crates/statementkit-python` (pyo3 +
+maturin, wheels, `.pyi` stubs); this shim keeps working meanwhile.

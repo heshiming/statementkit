@@ -1,0 +1,30 @@
+# Shared binding test vectors — synthetic only.
+# Tab-separated, 3 columns: case \t input \t expect_value (value empty unless ok).
+# case: ok | empty | invalid | null (null: input column unused; each
+# binding maps null-ish input to NullInput/IllegalArgumentException per docs).
+# Rows whose input is a lone backslash-u2026 aside, inputs contain no tabs.
+# This file mirrors the Rust core vectors; a binding that disagrees has a bug.
+ok	12.25	12.25
+ok	-0.5	-0.5
+ok	+2.5	2.5
+ok	1e3	1000.0
+ok	  42.0 	42.0
+ok	-2.5E-3	-0.0025
+ok	7.	7.0
+ok	.5	0.5
+empty		
+empty	   
+invalid	abc	
+invalid	1,234.56	
+invalid	1.2.3	
+invalid	0x10	
+invalid	1 2	
+invalid	(1.5)	
+invalid	5%	
+invalid	NaN	
+invalid	nan	
+invalid	inf	
+invalid	-inf	
+invalid	infinity	
+invalid	3.5x	
+null		

@@ -1,0 +1,26 @@
+{
+  "name": "statementkit",
+  "version": "0.1.0",
+  "description": "Parse brokerage statement content into actionable numbers (WASM build of the Rust core)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib",
+    "wasm"
+  ],
+  "scripts": {
+    "build:wasm": "cargo build --release -p statementkit-c --target wasm32-unknown-unknown && mkdir -p wasm && cp ../../target/wasm32-unknown-unknown/release/statementkit_c.wasm wasm/",
+    "test": "node --test test/parse_float.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

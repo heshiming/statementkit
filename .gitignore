@@ -11,3 +11,5 @@ dist/
 build/
 *.class
 jar-build/
+bindings/java/.temurin/
+bindings/java/out/

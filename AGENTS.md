@@ -46,9 +46,11 @@ ABI boundary, language bindings layered on top.
   null checks, `catch_unwind` at every boundary so no Rust panic crosses
   into C. `include/statementkit.h` is hand-kept in sync; the discriminant
   values are contractual. cbindgen arrives when the API grows.
-- `bindings/{python,node,java}` — thin shells over the C ABI or a native
-  bridge. A binding never re-implements parsing logic; behavioral
-  difference between bindings is a bug. New Rust binding crates go in
+- `bindings/{python,node,java,go}` — thin shells over the C ABI or a
+  native bridge (python: ctypes, node: raw wasm, java: Panama FFM, go:
+  cgo). A binding never re-implements parsing logic; behavioral difference
+  between bindings is a bug, so every suite runs the shared vectors in
+  `tests/vectors/`. New Rust binding crates go in
   `crates/statementkit-<lang>`.
 
 ## Rust rules

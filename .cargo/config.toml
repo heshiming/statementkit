@@ -1,0 +1,5 @@
+# wasm32-unknown-unknown supports only panic=abort; the catch_unwind
+# boundary stays for native targets (there a caught panic maps to SK_PANIC,
+# here it traps as an unreachable instruction the JS loader can surface).
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "panic=abort"]

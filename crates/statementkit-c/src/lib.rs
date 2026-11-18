@@ -59,6 +59,27 @@ pub extern "C" fn sk_version() -> *const c_char {
     VERSION.as_ptr().cast()
 }
 
+// Raw-wasm callers (JS loader) need to place bytes in linear memory and
+// cannot use libc malloc. Native targets are unaffected.
+#[cfg(target_arch = "wasm32")]
+#[unsafe(no_mangle)]
+pub extern "C" fn sk_wasm_alloc(len: usize) -> *mut u8 {
+    match std::alloc::Layout::from_size_align(len, 8) {
+        Ok(layout) => unsafe { std::alloc::alloc(layout) },
+        Err(_) => std::ptr::null_mut(), // size overflow; caller checks null
+    }
+}
+
+#[cfg(target_arch = "wasm32")]
+#[unsafe(no_mangle)]
+pub extern "C" fn sk_wasm_free(ptr: *mut u8, len: usize) {
+    if !ptr.is_null() {
+        if let Ok(layout) = std::alloc::Layout::from_size_align(len, 8) {
+            unsafe { std::alloc::dealloc(ptr, layout) };
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
