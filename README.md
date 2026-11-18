@@ -22,7 +22,8 @@ crates/statementkit-c    C ABI: status codes, out-params, panic-proofed
   include/statementkit.h hand-kept header; discriminants contractual
 bindings/python          ctypes shim over the C ABI (pyo3 wheels later)
 bindings/node            raw-WASM npm package, TypeScript types included
-bindings/java            Panama FFM (java.lang.foreign), JDK 22+, no JNI
+bindings/java            Panama FFM, JDK 22+, no JNI; Maven
+                         io.github.heshiming:statementkit (natives embedded)
 bindings/go              cgo over the static lib, plain `go test ./...`
 tests/vectors/           shared ground-truth vectors every binding runs
 scripts/c-smoke.sh       links tests/smoke.c against the static lib, runs it

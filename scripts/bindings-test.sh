@@ -25,7 +25,9 @@ else
   JC=bindings/java/.temurin/bin/javac; JA=bindings/java/.temurin/bin/java
 fi
 mkdir -p bindings/java/out
-"$JC" -d bindings/java/out bindings/java/src/org/statementkit/*.java
+"$JC" -d bindings/java/out \
+  bindings/java/src/org/statementkit/*.java \
+  bindings/java/test/org/statementkit/*.java
 STATEMENTKIT_LIB="$PWD/target/release/libstatementkit_c.so" \
   "$JA" --enable-native-access=ALL-UNNAMED -cp bindings/java/out \
   org.statementkit.StatementKitTest tests/vectors/parse_float.tsv

@@ -1,5 +1,7 @@
 package org.statementkit;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -8,12 +10,15 @@ import java.lang.foreign.SymbolLookup;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Panama FFM binding over statementkit's C ABI (JDK 22+; no JNI).
  *
- * Loads libstatementkit_c.{so,dylib,dll} from java.library.path or
- * $STATEMENTKIT_LIB's directory. Exceptions mirror the other bindings:
+ * Loads libstatementkit_c.{so,dll}: $STATEMENTKIT_LIB overrides; the
+ * Maven jar embeds per-platform natives and extracts one at startup;
+ * otherwise java.library.path. Exceptions mirror the other bindings:
  * EmptyInputException, InvalidInputException, PanicError as unchecked.
  */
 public final class StatementKit {
@@ -38,13 +43,7 @@ public final class StatementKit {
     private static final MethodHandle VERSION;
 
     static {
-        String env = System.getenv("STATEMENTKIT_LIB");
-        SymbolLookup lib;
-        if (env != null) {
-            lib = SymbolLookup.libraryLookup(java.nio.file.Path.of(env), Arena.global());
-        } else {
-            lib = SymbolLookup.libraryLookup("statementkit_c", Arena.global());
-        }
+        SymbolLookup lib = loadLibrary();
         Linker linker = Linker.nativeLinker();
         PARSE = linker.downcallHandle(
                 lib.find("sk_parse_float").orElseThrow(StatementKit::unavailable),
@@ -55,6 +54,42 @@ public final class StatementKit {
     }
 
     private StatementKit() {}
+
+    // Discovery order: $STATEMENTKIT_LIB, jar-embedded native, java.library.path.
+    private static SymbolLookup loadLibrary() {
+        String env = System.getenv("STATEMENTKIT_LIB");
+        if (env != null) {
+            return SymbolLookup.libraryLookup(Path.of(env), Arena.global());
+        }
+        Path embedded = extractEmbedded();
+        if (embedded != null) {
+            return SymbolLookup.libraryLookup(embedded, Arena.global());
+        }
+        return SymbolLookup.libraryLookup("statementkit_c", Arena.global());
+    }
+
+    // Copies the jar entry lib/<os>-<arch>/<file> to a temp file, or null if
+    // the jar carries no native for this platform (fall through, don't fail).
+    private static Path extractEmbedded() {
+        String os = System.getProperty("os.name", "").toLowerCase();
+        String arch = System.getProperty("os.arch", "").toLowerCase().replace("amd64", "x86_64");
+        boolean win = os.startsWith("win");
+        String name = win ? "statementkit_c.dll" : "libstatementkit_c.so";
+        String resource = "/lib/" + (win ? "windows-" : "linux-") + arch + "/" + name;
+        try (InputStream in = StatementKit.class.getResourceAsStream(resource)) {
+            if (in == null) {
+                return null;
+            }
+            Path dir = Files.createTempDirectory("statementkit");
+            Path file = dir.resolve(name);
+            Files.copy(in, file);
+            file.toFile().deleteOnExit();
+            dir.toFile().deleteOnExit();
+            return file;
+        } catch (IOException e) {
+            return null;
+        }
+    }
 
     private static UnsupportedOperationException unavailable() {
         return new UnsupportedOperationException(

@@ -60,6 +60,93 @@ jobs:
           name: sdist
           path: dist/*.tar.gz
 
+  javajar:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-gnu,aarch64-unknown-linux-gnu,x86_64-pc-windows-gnu
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cargo-zigbuild ziglang
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "22"
+      - run: scripts/stage-java-natives.sh
+      - run: mvn -B -f bindings/java/pom.xml package -Dgpg.skip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: java-jar
+          path: bindings/java/target/statementkit-*.jar
+
+  javadrill:
+    needs: javajar
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: java-jar
+          path: java-jar
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "22"
+      - name: Shared-vector test via the jar's embedded native
+        run: |
+          set -euo pipefail
+          jar="$(ls java-jar/statementkit-*.jar | grep -v -e sources -e javadoc)"
+          mkdir -p out-test
+          javac -d out-test bindings/java/test/org/statementkit/*.java
+          java --enable-native-access=ALL-UNNAMED -cp "$jar:out-test" \
+              org.statementkit.StatementKitTest tests/vectors/parse_float.tsv
+
+  publish-java:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [javajar, javadrill]
+    runs-on: ubuntu-24.04
+    environment: maven-central
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-gnu,aarch64-unknown-linux-gnu,x86_64-pc-windows-gnu
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cargo-zigbuild ziglang
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "22"
+          server-id: central
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_PASSWORD
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+      - name: Import the Maven Central signing key
+        env:
+          SK_ARMOR: ${{ secrets.CENTRAL_GPG_SECRET_ARMOR }}
+        run: printf '%s\n' "$SK_ARMOR" | gpg --batch --import
+      - run: scripts/stage-java-natives.sh
+      - run: >
+          mvn -B -f bindings/java/pom.xml deploy
+          -Dgpg.keyname=${{ secrets.CENTRAL_GPG_KEY_ID }}
+
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [wheels, sdist]

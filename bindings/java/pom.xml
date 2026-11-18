@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Java binding for statementkit, published to Maven Central as
+     io.github.heshiming:statementkit. Natives are staged into native/lib/
+     <os>-<arch>/ before packaging (see .github/workflows/release.yml). -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.heshiming</groupId>
+  <artifactId>statementkit</artifactId>
+  <version>0.1.0</version>
+  <packaging>jar</packaging>
+
+  <name>statementkit</name>
+  <description>Parse brokerage statement content into actionable numbers. Independent tool. Not affiliated with or endorsed by Interactive Brokers LLC.</description>
+  <url>https://github.com/heshiming/statementkit</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>heshiming</id>
+      <name>heshiming</name>
+      <url>https://github.com/heshiming</url>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:https://github.com/heshiming/statementkit.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/heshiming/statementkit.git</developerConnection>
+    <url>https://github.com/heshiming/statementkit</url>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.release>22</maven.compiler.release>
+  </properties>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>native</directory>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/../..</directory>
+        <includes><include>LICENSE</include></includes>
+        <targetPath>META-INF</targetPath>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.16.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>org.statementkit</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.4.0</version>
+        <executions>
+          <execution>
+            <id>sources</id>
+            <goals><goal>jar-no-fork</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
+        <executions>
+          <execution>
+            <id>javadoc</id>
+            <goals><goal>jar</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>3.2.8</version>
+        <executions>
+          <execution>
+            <id>sign</id>
+            <phase>verify</phase>
+            <goals><goal>sign</goal></goals>
+            <configuration>
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.12.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <autoPublish>true</autoPublish>
+          <waitUntil>published</waitUntil>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
