@@ -1,8 +1,13 @@
 # Python binding — implemented (ctypes)
 
-`statementkit.py` is a zero-dependency ctypes shim over the C ABI. Requires
-the built library: `cargo build --release -p statementkit-c` (auto-found in
-`target/release`, override with `$STATEMENTKIT_LIB`).
+`statementkit` is a zero-dependency ctypes shim over the C ABI. Published
+on PyPI as a wheel with the native library bundled; `pip install
+statementkit`. For in-repo development: `cargo build --release -p
+statementkit-c` (auto-found in `target/release`, override with
+`$STATEMENTKIT_LIB`).
+
+Independent tool. Not affiliated with or endorsed by Interactive Brokers
+LLC.
 
 ```python
 import statementkit
@@ -17,5 +22,10 @@ Errors mirror the ABI status codes: `NullInputError`, `EmptyInputError`,
 
 Test: `python3 test_parse_float.py` (shared vectors from `tests/vectors/`).
 
+Packaging: the Python distribution is declared in the repo-root
+`pyproject.toml`; setuptools-rust (`NoBinding`) compiles
+`crates/statementkit-c` and bundles the cdylib into the wheel. Build with
+`python -m build` from the repo root.
+
 Next stage when the API is real: `crates/statementkit-python` (pyo3 +
-maturin, wheels, `.pyi` stubs); this shim keeps working meanwhile.
+maturin, `.pyi` stubs); this shim keeps working meanwhile.

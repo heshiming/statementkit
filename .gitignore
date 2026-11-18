@@ -13,3 +13,4 @@ build/
 jar-build/
 bindings/java/.temurin/
 bindings/java/out/
+*.egg-info/

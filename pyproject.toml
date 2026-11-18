@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77", "setuptools-rust>=1.10"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "statementkit"
+version = "0.1.0" # keep in step with the Cargo workspace version
+description = "Parse brokerage statement content into actionable numbers. Independent tool. Not affiliated with or endorsed by Interactive Brokers LLC."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "heshiming" }]
+keywords = ["brokerage", "statements", "parsing", "finance"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.urls]
+Homepage = "https://github.com/heshiming/statementkit"
+Repository = "https://github.com/heshiming/statementkit"
+
+# The ctypes shim lives in bindings/python; this root project only packages it.
+[tool.setuptools]
+package-dir = { "" = "bindings/python" }
+
+[tool.setuptools.packages.find]
+where = ["bindings/python"]
+
+# Bundles the C ABI cdylib into the package; the ctypes shim loads it from
+# its own dir. NoBinding: no Python-API symbols, loaded only via ctypes.
+[[tool.setuptools-rust.ext-modules]]
+target = "statementkit._statementkit_c"
+path = "crates/statementkit-c/Cargo.toml"
+binding = "NoBinding"
+cargo_manifest_args = ["--locked"]

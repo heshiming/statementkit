@@ -1,15 +1,17 @@
 """statementkit — ctypes shim over the C ABI.
 
-Interim binding, zero dependencies: dlopens the shared/static library built
-by `cargo build -p statementkit-c`. The pyo3 wheel crate supersedes this
+Interim binding, zero dependencies: dlopens the C ABI shared library.
+pip wheels bundle the library next to this file; in-repo builds find it in
+the workspace target/release dir. The pyo3 wheel crate supersedes this
 when the API is real. Library discovery: $STATEMENTKIT_LIB, else the
-workspace target/release dir next to this file.
+package dir, else workspace target/release, else the loader path.
 """
 
 from __future__ import annotations
 
 import ctypes
 import ctypes.util
+import glob
 import os
 import pathlib
 
@@ -50,7 +52,13 @@ def _find_library() -> str:
     env = os.environ.get("STATEMENTKIT_LIB")
     if env:
         return env
-    root = pathlib.Path(__file__).resolve().parents[2]
+    here = pathlib.Path(__file__).resolve().parent
+    for hit in glob.glob(str(here / "*statementkit_c*.so")) + \
+            glob.glob(str(here / "*statementkit_c*.dylib")) + \
+            glob.glob(str(here / "*statementkit_c*.dll")) + \
+            glob.glob(str(here / "*statementkit_c*.pyd")):
+        return hit
+    root = here.parents[2]
     names = ("libstatementkit_c.so", "libstatementkit_c.dylib", "statementkit_c.dll")
     for name in names:
         candidate = root / "target" / "release" / name
@@ -61,8 +69,9 @@ def _find_library() -> str:
         if found:
             return found
     raise ImportError(
-        "statementkit native library not found; run `cargo build --release -p "
-        "statementkit-c` or set $STATEMENTKIT_LIB"
+        "statementkit native library not found; install the statementkit "
+        "wheel, run `cargo build --release -p statementkit-c` in the "
+        "workspace, or set $STATEMENTKIT_LIB"
     )
 
 
