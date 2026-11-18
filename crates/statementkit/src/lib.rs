@@ -2,6 +2,9 @@
 //!
 //! Pure functions only — no I/O, no FFI types. All parsing and derivation
 //! logic lives in this crate; bindings are thin shells over it.
+//!
+//! Independent tool. Not affiliated with or endorsed by Interactive
+//! Brokers LLC.
 
 /// Failure reasons for numeric parsing.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
