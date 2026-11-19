@@ -89,6 +89,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("roll-yield", || {
             Box::new(targets::roll_yield::RollYield::new())
         }),
+        ("flow-timing", || {
+            Box::new(targets::flow_timing::FlowTiming::new())
+        }),
     ]
 }
 

@@ -1,0 +1,11 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - January 31, 2026"
+Statement,Data,When Generated,"February 2, 2026, 04:02:11 EST"
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Beginning Value,1090000
+Change in NAV,Data,Deposits & Withdrawals,300000
+Change in NAV,Data,Ending Value,1390000
+Deposits & Withdrawals,Header,Currency,Account,Settle Date,Description,Amount
+Deposits & Withdrawals,Data,USD,AAA0000001,20260105,Deposit,300000
