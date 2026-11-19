@@ -1,0 +1,18 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000003
+Statement,Data,Currency,USD
+Statement,Data,Period,"October 1, 2026 - October 15, 2026"
+Statement,Data,When Generated,"October 16, 2026, 03:05:00 EDT"
+Base Currency Exchange Rate,Header,Currency,Exchange Rate
+Base Currency Exchange Rate,Data,EUR,1.10
+Open Positions,Header,Symbol,Quantity,Close Price,Mult,Value,Cost Basis,Unrealized P/L,Asset Category,Currency,DataDiscriminator
+Open Positions,Data,STK1,1000,113.18,1,113180,-100000,13180,Stock,USD,Summary
+Open Positions,Data,EURX,1000,50.00,1,50000,-48000,2000,Stock,EUR,Summary
+Net Asset Value,Header,Asset Class,Prior Long,Prior Short,Prior Total,Current Long,Current Short,Current Total,Change,Change%
+Net Asset Value,Data,Cash,600000.00,-10000.00,590000.00,663482.00,-20335.00,643147.00,53147.00,9.01
+Net Asset Value,Data,Stock,100000.00,0.00,100000.00,113180.00,0.00,113180.00,13180.00,13.18
+Net Asset Value,Data,  Stock Sub,100000.00,0.00,100000.00,113180.00,0.00,113180.00,13180.00,13.18
+Net Asset Value,Data,Options,0.00,-2000.00,-2000.00,0.00,-3491.00,-3491.00,-1491.00,74.55
+Net Asset Value,Data,Interest Accruals,700.00,-20.00,680.00,822.00,-27.00,796.00,116.00,17.06
+Net Asset Value,Data,Dividend Accruals,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0
+Net Asset Value,Data,Total,700700.00,-32020.00,668680.00,777484.00,-23853.00,753631.00,84951.00,12.70

@@ -1,5 +1,6 @@
 //! Built targets; one extraction goal per module file.
 
+pub mod alloc;
 pub mod attribution;
 pub mod interest;
 pub mod nav_series;
