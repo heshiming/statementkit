@@ -14,11 +14,13 @@ pub mod json;
 pub mod session;
 pub mod target;
 mod targets;
+pub mod tickers;
 
 pub use dec::{Dec, DecError};
 pub use json::Value;
 pub use session::{FileSummary, SectionSummary, Session, SessionError};
 pub use target::{RowRef, Target, target_names};
+pub use tickers::{root_up, ticker_prefix};
 
 /// Failure reasons for numeric parsing.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

@@ -1,7 +1,7 @@
 //! Streaming usage demo: feed statement CSVs into selected targets and
 //! print the report.
 //!
-//! Usage: stream [--targets a,b|all] [--json] <file-or-dir>...
+//! Usage: stream [--targets a,b|all] [--tickers A,B] [--json] <file-or-dir>...
 
 use statementkit::Session;
 use statementkit::Value;
@@ -12,6 +12,7 @@ use std::path::{Path, PathBuf};
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let mut names: Option<Vec<String>> = None;
+    let mut tickers: Vec<String> = Vec::new();
     let mut json = false;
     let mut paths: Vec<PathBuf> = Vec::new();
     let mut iter = args.into_iter();
@@ -24,6 +25,14 @@ fn main() {
                 } else {
                     names = Some(list.split(',').map(|s| s.trim().to_string()).collect());
                 }
+            }
+            "--tickers" => {
+                let list = iter.next().unwrap_or_default();
+                tickers = list
+                    .split([',', ' '])
+                    .map(|s| s.trim().to_string())
+                    .filter(|s| !s.is_empty())
+                    .collect();
             }
             "--json" => json = true,
             "-h" | "--help" => {
@@ -42,7 +51,13 @@ fn main() {
         None => target_names().iter().map(|s| s.to_string()).collect(),
     };
     let names: Vec<&str> = owned.iter().map(String::as_str).collect();
-    let mut session = match Session::open(&names) {
+    let opened = if tickers.is_empty() {
+        Session::open(&names)
+    } else {
+        let t: Vec<&str> = tickers.iter().map(String::as_str).collect();
+        Session::open_selected(&names, &t)
+    };
+    let mut session = match opened {
         Ok(s) => s,
         Err(e) => {
             eprintln!("error: {e}");
@@ -92,7 +107,7 @@ fn main() {
 }
 
 fn usage() {
-    println!("usage: stream [--targets a,b|all] [--json] <file-or-dir>...");
+    println!("usage: stream [--targets a,b|all] [--tickers A,B] [--json] <file-or-dir>...");
     println!("targets: {}", target_names().join(", "));
 }
 
