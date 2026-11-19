@@ -1,0 +1,16 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"March 1, 2026 - March 31, 2026"
+Statement,Data,When Generated,"April 1, 2026, 04:02:11 EDT"
+Trades,Header,Symbol,Date/Time,Quantity,Trade Price,Proceeds,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,AAA,"2026-03-02, 10:00:00",100,10.00,-1000,-1,1000,0,O
+Trades,Data,AAA,"2026-03-03, 10:00:00",100,12.00,-1200,-1,1200,0,O
+Trades,Data,BBB,"2026-03-04, 10:00:00",100,10.00,-1000,-1,1000,0,O
+Trades,Data,BBB,"2026-03-05, 10:00:00",-100,15.00,1500,-1,-1000,499,C
+Trades,Data,DDD,"2026-03-06, 10:00:00",50,8.00,-400,-1,400,0,O
+Trades,Data,EEE,"2026-03-09, 10:00:00",-100,20.00,2000,-1,-1900,99,C
+Open Positions,Header,Symbol,Quantity,Close Price,Cost Price,Mult,Value,Cost Basis,Unrealized P/L,Asset Category,Currency,DataDiscriminator
+Open Positions,Data,AAA,200,11.50,11.00,1,2300,-2200,100,Stock,USD,Summary
+Open Positions,Data,BBB,100,12.00,12.00,1,1200,-1200,0,Stock,USD,Summary
+Open Positions,Data,CCC,50,19.00,20.00,1,950,-1000,-50,Stock,USD,Summary
