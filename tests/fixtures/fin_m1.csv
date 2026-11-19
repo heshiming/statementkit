@@ -1,0 +1,15 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 2, 2027, 04:02:11 EST"
+Account Information,Header,Field,Value
+Account Information,Data,Account,AAA0000001 (Custom Consolidated)
+Account Information,Data,Accounts Included,"AAA0000001, U10000025"
+Interest,Header,Currency,Account,Date,Description,Amount
+Interest,Data,USD,AAA0000001,20260131,CR INT,500
+Interest,Data,USD,AAA0000001,20260228,SYEP Fee Earned by Customer,120
+Interest,Data,USD,AAA0000001,20260331,INT CHG,-800
+Interest,Data,USD,AAA0000001,20260430,INT CHG,150
+Interest,Data,USD,AAA0000001,20260531,ADJUSTMENT,-30
+Interest,Data,EUR,AAA0000001,20260630,CR INT EUR,70

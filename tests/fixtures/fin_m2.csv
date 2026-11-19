@@ -1,0 +1,10 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 2, 2027, 04:02:11 EST"
+Account Information,Header,Field,Value
+Account Information,Data,Account,AAA0000001 (Custom Consolidated)
+Account Information,Data,Accounts Included,"AAA0000001, U10000025"
+Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Realized P/L,Comm/Fee,Code
+Trades,Data,U10000025,DEF,"2026-06-10, 10:00:00",-50,20,300,-5,C
