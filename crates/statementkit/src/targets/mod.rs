@@ -24,6 +24,7 @@ pub mod roll_yield;
 pub mod subaccount_ledger;
 pub mod syep;
 pub mod symbol_pnl;
+pub mod ticker_map;
 pub mod trades;
 pub mod twr;
 pub mod wash_sales;

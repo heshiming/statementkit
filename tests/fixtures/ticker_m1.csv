@@ -1,0 +1,33 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - January 31, 2026"
+Statement,Data,When Generated,"February 2, 2026, 04:02:11 EST"
+Trades,Header,Symbol,Date/Time,Quantity,Trade Price,Realized P/L,Comm/Fee,Code
+Trades,Data,ABC,"2026-01-05, 10:00:00",100,50,0,-1,O
+Trades,Data,"ABC 20Mar26 50 C","2026-01-06, 10:00:00",-10,3,-15,-1,C
+Trades,Data,MNEH6,"2026-01-07, 10:00:00",2,4800,0,-1,O
+Open Positions,Header,Symbol,Quantity,Multi,Price
+Open Positions,Data,ABC,100,1,52
+Borrow Fee Details,Header,Symbol,Currency,Date,Borrow Quantity,Borrow Fee
+Borrow Fee Details,Data,ABC,USD,20260131,100,-4
+Borrow Fee Details,Data,,USD,20260131,0,0
+Change in Dividend Accruals,Header,Symbol,Ex Date,Pay Date,Accrual Amount
+Change in Dividend Accruals,Data,ABC,20260115,20260210,25
+Dividends,Header,Currency,Ex Date,Pay Date,Amount,Description
+Dividends,Data,USD,20260115,20260210,50,"ABC(US00000X1060) CASH DIVIDEND"
+Dividends,Data,EUR,20260115,20260210,7,
+Option Cash Settlements,Header,Date,Amount,Description
+Option Cash Settlements,Data,20260120,-150,"ABC(US00000X1060) EXPIRED"
+Corporate Actions,Header,Date,Description,Amount
+Corporate Actions,Data,20260120,MERGE FEE,-20
+Interest,Header,Currency,Account,Date,Description,Amount
+Interest,Data,USD,AAA0000001,20260131,CR INT,40
+Withholding Tax,Header,Currency,Account,Amount,Description
+Withholding Tax,Data,USD,AAA0000001,-5,WITHHOLD
+Deposits & Withdrawals,Header,Currency,Account,Settle Date,Description,Amount
+Deposits & Withdrawals,Data,USD,AAA0000001,20260105,Deposit,10000
+Financial Instrument Information,Header,Symbol,Description,Asset Category
+Financial Instrument Information,Data,ABC,ALPHA CORP,Stocks
+Financial Instrument Information,Data,"ABC 20Mar26 50 C","ABC CALL",Equity and Index Options
+Financial Instrument Information,Data,MNEH6,MICRO NANQ JUN 26,Futures

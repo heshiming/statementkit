@@ -107,6 +107,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("financing-legs", || {
             Box::new(targets::financing_legs::FinancingLegs::new())
         }),
+        ("ticker-map", || {
+            Box::new(targets::ticker_map::TickerMap::new())
+        }),
     ]
 }
 
