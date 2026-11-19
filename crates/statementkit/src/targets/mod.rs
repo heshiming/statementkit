@@ -6,6 +6,7 @@ pub mod basis_recon;
 pub mod borrow_fees;
 pub mod cash_coverage;
 pub mod dividends;
+pub mod family_stated;
 pub mod flow_timing;
 pub mod fx_exposure;
 pub mod idle_cash;

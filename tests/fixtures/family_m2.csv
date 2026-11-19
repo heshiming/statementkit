@@ -1,0 +1,13 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,BBB0000002
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 2, 2027, 04:02:11 EST"
+Account Information,Header,Field,Value
+Account Information,Data,Account,BBB0000002
+Account Information,Data,Account Type,Institution Master
+Account Information,Data,Account Capabilities,Portfolio Margin
+Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Code
+Trades,Data,BBB0000002,XYZ,"2026-05-05, 10:00:00",200,30,O
+Disclaimer,Header,Field,Value
+Disclaimer,Data,Disclaimer,synthetic sample data

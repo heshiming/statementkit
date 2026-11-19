@@ -92,6 +92,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("flow-timing", || {
             Box::new(targets::flow_timing::FlowTiming::new())
         }),
+        ("family-stated", || {
+            Box::new(targets::family_stated::FamilyStated::new())
+        }),
     ]
 }
 

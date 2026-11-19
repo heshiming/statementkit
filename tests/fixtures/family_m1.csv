@@ -1,0 +1,24 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - March 31, 2026"
+Statement,Data,When Generated,"April 2, 2026, 04:02:11 EDT"
+Account Information,Header,Field,Value
+Account Information,Data,Account,AAA0000001 (Custom Consolidated)
+Account Information,Data,Account Type,Institution Client
+Account Information,Data,Account Capabilities,Portfolio Margin
+Account Information,Data,Accounts Included,"AAA0000001, U10000025"
+Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Code
+Trades,Data,AAA0000001 (Custom Consolidated),ABC,"2026-01-15, 10:00:00",100,50,O
+Trades,Data,AAA0000001 (Custom Consolidated),ABC,"2026-02-20, 10:00:00",-100,55,C
+Dividends,Header,Account,Symbol,Ex Date,Amount,Description
+Dividends,Data,AAA0000001,ABC,20260210,120,CASH DIVIDEND
+Deposits & Withdrawals,Header,Currency,Account,Settle Date,Description,Amount
+Deposits & Withdrawals,Data,USD,U10000025,20260106,Internal Transfer,-50000
+Net Asset Value,Header,Asset Class,Prior Total,Current Long,Current Short,Current Total,Change
+Net Asset Value,Data,Total,900000,1000000,0,1000000,100000
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,900000
+Change in NAV,Data,Ending Value,1000000
+Performance Summary,Header,Total,Time Weighted Rate of Return
+Performance Summary,Data,100000,0.111111
