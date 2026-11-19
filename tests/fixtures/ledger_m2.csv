@@ -1,0 +1,8 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"September 2, 2026 - September 2, 2026"
+Statement,Data,When Generated,"September 3, 2026, 04:02:11 EDT"
+Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Realized P/L,Comm/Fee,Code
+Trades,Data,AAA0000001 (Custom Consolidated),ABC,"2026-09-02, 10:00:00",-100,40,-2000,-10,C
+Trades,Data,U10000025,DEF,"2026-09-02, 11:00:00",-50,20,500,-5,C
