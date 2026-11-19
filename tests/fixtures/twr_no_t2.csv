@@ -1,0 +1,14 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"October 1, 2026 - October 31, 2026"
+Statement,Data,When Generated,"November 2, 2026, 05:20:41 EST"
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,"6,552,100.00"
+Change in NAV,Data,Ending Value,"6,252,100.00"
+Change in NAV,Data,Mark-to-Market,"(300,000.00)"
+Change in NAV,Data,Deposits & Withdrawals,0
+Net Asset Value,Header,Asset Class,Prior Total,Current Long,Current Short,Current Total,Change
+Net Asset Value,Data,Equity and Index Options,"5,152,100.00","4,902,100.00",0.00,"4,902,100.00","(250,000.00)"
+Net Asset Value,Data,Futures,"500,000.00","450,000.00",0.00,"450,000.00","(50,000.00)"
+Net Asset Value,Data,Total,"6,552,100.00","6,252,100.00",0.00,"6,252,100.00","(300,000.00)"

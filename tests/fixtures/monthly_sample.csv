@@ -16,3 +16,11 @@ Change in NAV,Data,Change in Dividend Accruals,(500.00)
 Change in NAV,Data,Other FX Translations,(300.00)
 Change in NAV,Data,Position Transfers,0
 Change in NAV,Data,Deposits & Withdrawals,"(50,000.00)"
+Net Asset Value,Header,Asset Class,Prior Total,Current Long,Current Short,Current Total,Change
+Net Asset Value,Data,Equity and Index Options,"5,900,000.00","5,152,100.00",0.00,"5,152,100.00","199,200.00"
+Net Asset Value,Data,Futures,"500,000.00","500,000.00",0.00,"500,000.00",0.00
+Net Asset Value,Data,Total,"6,400,000.00","6,552,100.00",0.00,"6,552,100.00","152,100.00"
+Net Asset Value,Header,Asset Class,Time Weighted Rate of Return
+Net Asset Value,Data,Equity and Index Options,0.0320
+Net Asset Value,Data,Futures,0
+Net Asset Value,Data,Total,0.0300

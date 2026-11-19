@@ -142,8 +142,8 @@ impl Target for RiskSeries {
                             .collect(),
                     ),
                 ),
-                ("volatility_annualized".to_string(), opt_num(vol)),
-                ("max_drawdown".to_string(), opt_num(dd.ratio)),
+                ("volatility_annualized".to_string(), crate::json::ratio(vol)),
+                ("max_drawdown".to_string(), crate::json::ratio(dd.ratio)),
                 (
                     "peak_date".to_string(),
                     match &dd.peak_date {
@@ -197,20 +197,6 @@ impl Target for RiskSeries {
             ("notes".to_string(), Value::Arr(notes)),
         ])
     }
-}
-
-fn opt_num(v: Option<f64>) -> Value {
-    match v {
-        Some(x) => Value::Num(fix6(x)),
-        None => Value::Null,
-    }
-}
-
-/// 6-decimal fixed text with trailing zeros trimmed.
-fn fix6(v: f64) -> String {
-    let t = format!("{v:.6}");
-    let t = t.trim_end_matches('0').trim_end_matches('.');
-    t.to_string()
 }
 
 /// ISO dates sort lexicographically; stable sort keeps file order for

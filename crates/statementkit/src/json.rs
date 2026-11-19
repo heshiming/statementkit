@@ -59,6 +59,20 @@ impl Value {
     }
 }
 
+/// 6-decimal fixed text of an f64 ratio, trailing zeros trimmed.
+pub fn ratio_text(v: f64) -> String {
+    let t = format!("{v:.6}");
+    t.trim_end_matches('0').trim_end_matches('.').to_string()
+}
+
+/// Optional f64 ratio as JSON number or null.
+pub fn ratio(v: Option<f64>) -> Value {
+    match v {
+        Some(x) => Value::Num(ratio_text(x)),
+        None => Value::Null,
+    }
+}
+
 fn write_str(s: &str, out: &mut String) {
     out.push('"');
     for c in s.chars() {
