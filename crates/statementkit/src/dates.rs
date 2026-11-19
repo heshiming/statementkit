@@ -54,6 +54,33 @@ pub fn year(text: &str) -> Option<String> {
     None
 }
 
+/// `YYYY-MM` for any IB-printed date form (see [`year`]).
+pub fn month_key(text: &str) -> Option<String> {
+    let t = text.trim();
+    let digits = |s: &str| s.bytes().all(|b| b.is_ascii_digit());
+    if t.len() >= 8 && digits(&t[..8]) {
+        return Some(format!("{}-{}", &t[..4], &t[4..6]));
+    }
+    if t.len() >= 7 && t.as_bytes().get(4) == Some(&b'-') && digits(&t[..4]) && digits(&t[5..7]) {
+        return Some(t[..7].to_string());
+    }
+    if let Some(iso) = stated_to_iso(t) {
+        return Some(iso[..7].to_string());
+    }
+    if let Some((y, m)) = t.split_once(", ") {
+        if y.len() == 4 && digits(y) {
+            if let Some(mm) = MONTHS
+                .iter()
+                .find(|(n, _)| n.eq_ignore_ascii_case(m.trim()))
+                .map(|(_, i)| *i)
+            {
+                return Some(format!("{y}-{mm:02}"));
+            }
+        }
+    }
+    None
+}
+
 /// Days since 1970-01-01 for an ISO `YYYY-MM-DD` date (civil algorithm).
 pub fn iso_to_days(iso: &str) -> Option<i64> {
     let y: i64 = iso.get(0..4)?.parse().ok()?;

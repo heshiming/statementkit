@@ -72,6 +72,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("symbol-pnl", || {
             Box::new(targets::symbol_pnl::SymbolPnl::new())
         }),
+        ("dividends", || {
+            Box::new(targets::dividends::Dividends::new())
+        }),
     ]
 }
 

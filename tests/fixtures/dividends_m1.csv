@@ -1,0 +1,15 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2025 - December 31, 2026"
+Statement,Data,When Generated,"January 5, 2027, 04:02:11 EST"
+Change in Dividend Accruals,Header,Symbol,Date,Pay Date,Ex Date,Amount,Quantity,Tax,Net Amount,Gross Amount,Gross Rate,Type
+Change in Dividend Accruals,Data,ABC,20250320,20250331,20250315,-400,1000,0,400,400,0.5,CA
+Change in Dividend Accruals,Data,ABC,20250410,20250415,20250401,-400,1000,0,400,400,0.5,CA
+Change in Dividend Accruals,Data,XYZ,20260320,20260328,20260312,-270,1000,-270,1530,1800,2.4,CA
+Change in Dividend Accruals,Data,XYZ,20260620,20260627,20260612,-270,1000,-270,1530,1800,2.4,CA
+Dividends,Header,Currency,Account,Symbol,Date,Description,Amount
+Dividends,Data,USD,AAA0000001,XYZ,20260328,CASH DIVIDEND XYZ,1530
+Dividends,Data,USD,AAA0000001,QQQ,20261105,SPECIAL DIVIDEND,77
+Withholding Tax,Header,Currency,Account,Symbol,Date,Description,Amount
+Withholding Tax,Data,USD,AAA0000001,XYZ,20260328,WITHHOLDING TAX,-540
