@@ -1,0 +1,16 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"September 8, 2026"
+Statement,Data,When Generated,"September 9, 2026, 06:12:33 EST"
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,"6,540,000.00"
+Change in NAV,Data,Ending Value,"6,552,100.00"
+Change in NAV,Data,Mark-to-Market,"12,100.00"
+Change in NAV,Data,Interest,100.00
+Change in NAV,Data,Dividends,0
+Change in NAV,Data,Commissions,(50.00)
+Change in NAV,Data,Change in Interest Accruals,(25.00)
+Change in NAV,Data,Change in Dividend Accruals,0
+Change in NAV,Data,Other FX Translations,(25.00)
+Change in NAV,Data,Deposits & Withdrawals,0

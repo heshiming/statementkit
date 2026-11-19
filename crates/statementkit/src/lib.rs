@@ -8,9 +8,17 @@
 //! Brokers LLC.
 
 pub mod csv;
+pub mod dates;
+pub mod dec;
+pub mod json;
 pub mod session;
+pub mod target;
+mod targets;
 
-pub use session::{FileSummary, SectionSummary, Session};
+pub use dec::{Dec, DecError};
+pub use json::Value;
+pub use session::{FileSummary, SectionSummary, Session, SessionError};
+pub use target::{RowRef, Target, target_names};
 
 /// Failure reasons for numeric parsing.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

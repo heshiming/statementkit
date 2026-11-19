@@ -1,0 +1,28 @@
+1,234.56	ok	1234.56
+(1,000.00)	ok	-1000
+USD 123.45	ok	123.45
+123.45 USD	ok	123.45
+USD 1,234.56	ok	1234.56
+(USD 1,234.56)	ok	-1234.56
+ 42.0 	ok	42
+7.	ok	7
+.5	ok	0.5
++2.5	ok	2.5
+-0.50	ok	-0.5
+0.00000001	ok	0.00000001
+0.000000001	invalid	
+1e3	invalid	
+NaN	invalid	
+nan	invalid	
+infinity	invalid	
+1,00	ok	100
+1,234,567.89012345	ok	1234567.89012345
+	empty	
+   	empty	
+()	empty	
+USD	invalid	
+(12.34)	ok	-12.34
+-	invalid	
+--1	invalid	
+1.2.3	invalid	
+12 USD 34	invalid	
