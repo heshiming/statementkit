@@ -1,0 +1,17 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 4, 2027, 09:00:00 EST"
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,"1,000,000.00"
+Change in NAV,Data,Mark-to-Market,"200,000.00"
+Change in NAV,Data,Deposits & Withdrawals,"100,000.00"
+Change in NAV,Data,Ending Value,"1,300,000.00"
+Deposits & Withdrawals,Header,Currency,Account,Settle Date,Description,Amount
+Deposits & Withdrawals,Data,USD,AAA0000001,"March 14, 2026",Deposit,"200,000.00"
+Deposits & Withdrawals,Data,USD,AAA0000001,"August 1, 2026",Withdrawal,"(100,000.00)"
+Deposits & Withdrawals,Data,EUR,AAA0000002,"June 2, 2026",Deposit,500.00
+Net Asset Value,Header,Asset Class,Prior Total,Current Long,Current Short,Current Total,Change
+Net Asset Value,Data,Equity and Index Options,"1,000,000.00","1,300,000.00",0.00,"1,300,000.00","300,000.00"
+Net Asset Value,Data,Total,"1,000,000.00","1,300,000.00",0.00,"1,300,000.00","300,000.00"

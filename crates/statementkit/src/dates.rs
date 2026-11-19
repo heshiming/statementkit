@@ -49,6 +49,22 @@ pub fn iso_to_days(iso: &str) -> Option<i64> {
     Some(era * 146097 + doe - 719468)
 }
 
+/// ISO `YYYY-MM-DD` for days since 1970-01-01 (inverse of
+/// [`iso_to_days`]).
+pub fn days_to_iso(days: i64) -> String {
+    let z = days + 719468;
+    let era = if z >= 0 { z } else { z - 146096 } / 146097;
+    let doe = z - era * 146097;
+    let yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+    let y = yoe + era * 400;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y = if m <= 2 { y + 1 } else { y };
+    format!("{y:04}-{m:02}-{d:02}")
+}
+
 /// A `Period` value: single date or `from - to` range.
 /// Returns (from, to, is_range); `None` if neither side parses.
 pub fn stated_period(text: &str) -> Option<(Option<String>, Option<String>, bool)> {
@@ -62,7 +78,7 @@ pub fn stated_period(text: &str) -> Option<(Option<String>, Option<String>, bool
 
 #[cfg(test)]
 mod tests {
-    use super::{iso_to_days, stated_period, stated_to_iso};
+    use super::{days_to_iso, iso_to_days, stated_period, stated_to_iso};
 
     #[test]
     fn parses_stated_dates() {
@@ -101,5 +117,9 @@ mod tests {
         assert_eq!(iso_to_days("2026-01-08"), Some(20461));
         assert_eq!(iso_to_days("2026-1-08"), None);
         assert_eq!(iso_to_days("2026-01-08T00:00"), None);
+        assert_eq!(days_to_iso(0), "1970-01-01");
+        assert_eq!(days_to_iso(20458), "2026-01-05");
+        assert_eq!(days_to_iso(-1), "1969-12-31");
+        assert_eq!(days_to_iso(20457), "2026-01-04");
     }
 }
