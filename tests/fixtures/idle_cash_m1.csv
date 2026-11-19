@@ -1,0 +1,16 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"March 1, 2026 - March 31, 2026"
+Statement,Data,When Generated,"April 1, 2026, 04:02:11 EDT"
+Cash Report,Header,Category,Currency,Total,Securities,Futures,Paxos
+Cash Report,Data,Base Currency Summary,USD,1200000,1200000,0,0
+Cash Report,Data,Currency Summary,USD,1200000,1200000,0,0
+Insured Bank Deposit Sweep Program - By Bank,Header,Balance,Currency,Interest Accrual,Interest Rate (%),Program Bank,Transfers
+Insured Bank Deposit Sweep Program - By Bank,Data,700000,USD,2500,4.35,BARBUS,0,EXTRACELL
+Insured Bank Deposit Sweep Program - By Bank,Data,500000,USD,1400,3.38,BEASUS,0
+Interest,Header,Currency,Account,Symbol,Date,Description,Amount
+Interest,Data,USD,AAA0000001,,"2026, March",Credit Interest,4000
+Interest,Data,USD,AAA0000001,,"2026, March",Debit Interest,-50
+Interest Accruals,Header,Currency,Date,Interest Accrued,Ending Accrual Balance
+Interest Accruals,Data,USD,"2026, March",4000,716.90

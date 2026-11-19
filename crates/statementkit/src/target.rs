@@ -76,6 +76,10 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
             Box::new(targets::dividends::Dividends::new())
         }),
         ("syep", || Box::new(targets::syep::Syep::new())),
+        (
+            "idle-cash",
+            || Box::new(targets::idle_cash::IdleCash::new()),
+        ),
     ]
 }
 

@@ -1,0 +1,7 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"March 16, 2026 - March 16, 2026"
+Statement,Data,When Generated,"March 17, 2026, 04:02:11 EDT"
+Cash Report,Header,Category,Currency,Total,Securities,Futures,Paxos
+Cash Report,Data,Base Currency Summary,USD,800000,800000,0,0
