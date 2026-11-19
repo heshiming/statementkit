@@ -38,9 +38,14 @@ pub trait Target {
 type Factory = fn() -> Box<dyn Target>;
 
 pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
-    &[("nav-series", || {
-        Box::new(targets::nav_series::NavSeries::new())
-    })]
+    &[
+        ("nav-series", || {
+            Box::new(targets::nav_series::NavSeries::new())
+        }),
+        ("attribution", || {
+            Box::new(targets::attribution::Attribution::new())
+        }),
+    ]
 }
 
 /// Names accepted by [`crate::Session::open`].
