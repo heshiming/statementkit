@@ -2,6 +2,7 @@
 
 pub mod alloc;
 pub mod attribution;
+pub mod cash_coverage;
 pub mod interest;
 pub mod nav_series;
 pub mod risk_series;

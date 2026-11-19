@@ -1,0 +1,8 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"February 1, 2026 - February 28, 2026"
+Statement,Data,When Generated,"March 2, 2026, 04:00:00 EDT"
+Net Asset Value,Header,Asset Class,Prior Total,Current Total,Change,Change%
+Net Asset Value,Data,Cash,950000.00,1000000.00,50000.00,5.26
+Net Asset Value,Data,Total,950000.00,1000000.00,50000.00,5.26

@@ -1,0 +1,15 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - January 31, 2026"
+Statement,Data,When Generated,"February 2, 2026, 04:00:00 EDT"
+Cash Report,Header,Currency Summary,Currency,Base Currency,Total,Securities,Futures,Paxos,,,
+Cash Report,Data,Total Cash Base Currency,USD,USD,250000.00,240000.00,0.00,10000.00,,,
+Cash Report,Data,Total Cash,EUR,USD,55000.00,55000.00,0.00,0.00,,,
+Cash Report,Data,Deposit Securities,USD,USD,250000.00,240000.00,0.00,10000.00,,,
+Forex Balances,Header,Currency,Long Qty,Short Qty,Net Qty,Value in USD,Unrealized P/L in USD
+Forex Balances,Data,EUR,100000,0,100000,110000.00,2000.00
+Net Asset Value,Header,Asset Class,Prior Total,Current Total,Change,Change%
+Net Asset Value,Data,Cash,900000.00,950000.00,50000.00,5.56
+Net Asset Value,Data,Stock,40000.00,50000.00,10000.00,25.00
+Net Asset Value,Data,Total,940000.00,1000000.00,60000.00,6.38
