@@ -6,6 +6,7 @@ Statement,Data,When Generated,"April 2, 2026, 04:02:11 EDT"
 Account Information,Header,Field,Value
 Account Information,Data,Account,AAA0000001 (Custom Consolidated)
 Account Information,Data,Account Type,Institution Client
+Account Information,Data,Master Name,SYNTH GROUP LLC
 Account Information,Data,Account Capabilities,Portfolio Margin
 Account Information,Data,Accounts Included,"AAA0000001, U10000025"
 Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Code
@@ -22,3 +23,5 @@ Change in NAV,Data,Starting Value,900000
 Change in NAV,Data,Ending Value,1000000
 Performance Summary,Header,Total,Time Weighted Rate of Return
 Performance Summary,Data,100000,0.111111
+Disclaimer,Header,Field,Value
+Disclaimer,Data,Disclaimer,"This is a combined statement of your securities and/or commodities accounts and your digital asset (cryptocurrency) account. Synthetic sample text."

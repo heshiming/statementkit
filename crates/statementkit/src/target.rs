@@ -95,6 +95,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("family-stated", || {
             Box::new(targets::family_stated::FamilyStated::new())
         }),
+        ("family-detected", || {
+            Box::new(targets::family_detected::FamilyDetected::new())
+        }),
     ]
 }
 

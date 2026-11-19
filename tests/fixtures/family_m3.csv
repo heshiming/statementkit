@@ -1,0 +1,10 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,CCC0000003
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 2, 2027, 04:02:11 EST"
+Change in NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,500000
+Change in NAV,Data,Ending Value,520000
+Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Code
+Trades,Data,CCC0000003,DEF,"2026-07-01, 10:00:00",10,100,O
