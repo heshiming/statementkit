@@ -1,0 +1,25 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"March 1, 2026 - March 31, 2026"
+Statement,Data,When Generated,"April 1, 2026, 04:02:11 EDT"
+Change in Combined NAV,Header,Section,Key,Value,Basis,Currency
+Change in Combined NAV,Data,Net Asset Value,Starting Value,1000,,USD
+Change in Combined NAV,Data,Net Asset Value,Deposits & Withdrawals,0,,USD
+Change in Combined NAV,Data,Net Asset Value,Ending Value,1100,,USD
+Change in Combined NAV,Data,Net Asset Value,Mark-to-Market Performance (Price),80,,USD
+Change in Combined NAV,Data,Net Asset Value,Dividends,20,,USD
+Trades,Header,Symbol,Date/Time,Quantity,Proceeds,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,FOO,"2026-03-02, 10:00:00",-10,1000,-1,-950,49,C
+Trades,Data,BAR,"2026-03-03, 10:00:00",-20,-200,-1,-180,0,C
+Trades,Data,OPN,"2026-03-04, 10:00:00",100,-500,-1,500,120,O
+Trades,Data,O2,"2026-03-05, 10:00:00",100,-500,-1,500,0,O
+Open Positions,Header,Symbol,Quantity,Close Price,Cost Price,Mult,Value,Cost Basis,Unrealized P/L,Asset Category,Currency,DataDiscriminator
+Open Positions,Data,AAA,100,11.00,10.00,1,1100,-1000,100,Stock,USD,Summary
+Open Positions,Data,BBB,-200,5.00,4.50,1,-1000,900,-100,Stock,USD,Summary
+Open Positions,Data,CCC,60,10.00,10.00,1,500,-600,-100,Stock,USD,Summary
+Open Positions,Data,DDD,50,4.00,2.00,1,200,-100,50,Stock,USD,Summary
+Borrow Fee Details,Header,Symbol,Description,Date,Quantity,Date,Finance Price,Mkt, Borrow Fee Rate %,Borrow Fee,Borrow Quantity
+Borrow Fee Details,Data,SMR,"Shortable Shares",20260302,279530,20260302,0.56,279530,0.75,4.32,0
+Borrow Fee Details,Data,XYZ,Shortable,20260302,100000,20260302,0.30,100000,0.32,0.29,0
+Borrow Fee Details,Data,Total,"",20260302,0,20260302,0,0,0,4.61,0
