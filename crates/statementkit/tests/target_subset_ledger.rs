@@ -66,6 +66,26 @@ fn non_usd_counted_not_mixed() {
 }
 
 #[test]
+fn declared_bases_move_ratios_do_not() {
+    let report = report_fixture_set(6);
+    // subset stream [640, 95]: cum_pct of the declared K, labeled
+    // percent-of-capital, never CAGR
+    assert!(
+        report.contains("{\"kind\":\"notional\",\"k\":100000,\"ann_return\":0.0433,\"ann_vol\":0.009354,\"cum_pct\":0.00735}"),
+        "{report}"
+    );
+    assert!(
+        report.contains("\"kind\":\"family-nav-avg\",\"k\":1010000"),
+        "{report}"
+    );
+    assert!(
+        report.contains("\"nav_min\":1000000,\"nav_max\":1020000"),
+        "{report}"
+    );
+    assert!(report.contains("never CAGR"), "{report}");
+}
+
+#[test]
 fn fixtures_match_vector() {
     let report = report_fixture_set(7);
     let want = std::fs::read_to_string(format!(

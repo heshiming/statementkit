@@ -35,7 +35,7 @@ fn root_up_takes_option_legs_and_strips_futures() {
         "{report}"
     );
     assert!(
-        report.contains("\"Trades\":{\"matched\":3,\"unattributed\":0,\"dropped\":1}"),
+        report.contains("\"Trades\":{\"matched\":3,\"unattributed\":0,\"dropped\":1,"),
         "{report}"
     );
 }
@@ -44,7 +44,7 @@ fn root_up_takes_option_legs_and_strips_futures() {
 fn description_prefix_selects_the_dividend() {
     let report = selected(&["ABC"]);
     assert!(
-        report.contains("\"Dividends\":{\"matched\":1,\"unattributed\":0,\"dropped\":1}"),
+        report.contains("\"Dividends\":{\"matched\":1,\"unattributed\":0,\"dropped\":1,"),
         "{report}"
     );
 }
@@ -54,7 +54,7 @@ fn keyless_money_passes_as_the_residual() {
     let report = selected(&["ABC"]);
     // Interest carries no ticker: it always reaches the targets.
     assert!(
-        report.contains("\"Interest\":{\"matched\":0,\"unattributed\":1,\"dropped\":0}"),
+        report.contains("\"Interest\":{\"matched\":0,\"unattributed\":1,\"dropped\":0,"),
         "{report}"
     );
     assert!(report.contains("ticker-less residual"), "{report}");
@@ -76,6 +76,37 @@ fn no_selection_has_no_filter_fragment() {
     s.end_file();
     let report = s.report_text();
     assert!(!report.contains("\"filter\""), "{report}");
+}
+
+#[test]
+fn partition_closes_exactly() {
+    // selection ABC over ticker_m1:
+    //   selected  = trades -17, borrow -4, accruals +25, div +50, OCS -150
+    //   other     = the MNEH6 fill comm -1
+    //   keyless   = interest 40, withholding -5, deposit 10000, corp -20
+    let mut s = Session::open_selected(&["trades"], &["ABC"]).expect("session");
+    let path = format!(
+        "{}/../../tests/fixtures/ticker_m1.csv",
+        env!("CARGO_MANIFEST_DIR")
+    );
+    let bytes = std::fs::read(path).expect("fixture missing");
+    s.feed(&bytes);
+    s.end_file();
+    let report = s.report_text();
+    assert!(
+        report.contains(
+            "\"partition\":{\"selected_roots\":-96,\"every_other_root\":-1,\"ticker_less\":10015,\"grand_total\":9918,\"non_usd_rows_held_out\":1}"
+        ),
+        "{report}"
+    );
+    assert!(
+        report.contains("components sum to the grand total"),
+        "{report}"
+    );
+    assert!(
+        report.contains("assignment/exercise cash, not P&L"),
+        "{report}"
+    );
 }
 
 #[test]

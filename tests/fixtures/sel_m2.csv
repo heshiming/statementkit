@@ -8,3 +8,5 @@ Trades,Data,USD,ABC,"2026-01-09, 10:00:00",-100,48,-200,-2,C
 Trades,Data,USD,MNEJ6,"2026-02-03, 10:00:00",-2,4900,300,-3,C
 Dividends,Header,Currency,Ex Date,Pay Date,Amount,Description
 Dividends,Data,EUR,20260215,20260310,7,"ABC(US00000X1060) CASH DIVIDEND"
+Change in Combined NAV,Header,Field,Value
+Change in Combined NAV,Data,Ending Value,1020000

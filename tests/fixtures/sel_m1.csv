@@ -12,3 +12,5 @@ Dividends,Header,Currency,Ex Date,Pay Date,Amount,Description
 Dividends,Data,USD,20260115,20260210,50,"ABC(US00000X1060) CASH DIVIDEND"
 Borrow Fee Details,Header,Currency,Symbol,Date,Borrow Quantity,Borrow Fee
 Borrow Fee Details,Data,USD,ABC,20260131,100,-4
+Change in Combined NAV,Header,Field,Value
+Change in Combined NAV,Data,Ending Value,1000000

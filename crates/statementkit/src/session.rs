@@ -11,6 +11,7 @@
 //! the reference reader does.
 
 use crate::csv::Csv;
+use crate::dec::Dec;
 use crate::json::Value;
 use crate::target::{self, RowRef, Target};
 use crate::tickers::{root_up, ticker_prefix};
@@ -47,13 +48,81 @@ pub struct SectionSummary {
 /// Active ticker selection: rows keyed to a selected root are
 /// dispatched, rows keyed to any other root are dropped, rows
 /// with no key pass through as a named ticker-less residual.
+/// Per section the dollars follow the same three-way partition,
+/// exact by construction.
+#[derive(Debug, Default)]
+struct SecStat {
+    matched: usize,
+    unattributed: usize,
+    dropped: usize,
+    matched_usd: Dec,
+    unattributed_usd: Dec,
+    dropped_usd: Dec,
+    non_usd: usize,
+}
+
 #[derive(Debug, Default)]
 struct Selection {
     roots: BTreeSet<String>,
     /// Selected roots that have not matched a row yet.
     unmatched: BTreeSet<String>,
-    /// Per section: [matched, unattributed, dropped].
-    stats: BTreeMap<String, [usize; 3]>,
+    stats: BTreeMap<String, SecStat>,
+    /// Current file's base currency, from its `Statement` meta.
+    base_ccy: String,
+}
+
+/// Money columns per section, for the partition dollars.
+fn money_cols(title: &str) -> &'static [&'static str] {
+    match title {
+        "Trades" => &["Realized P/L", "Comm/Fee"],
+        "Dividends"
+        | "Interest"
+        | "Withholding Tax"
+        | "Deposits & Withdrawals"
+        | "Option Cash Settlements"
+        | "Corporate Actions" => &["Amount"],
+        "Borrow Fee Details" => &["Borrow Fee"],
+        "Change in Dividend Accruals" => &["Accrual Amount"],
+        _ => &[],
+    }
+}
+
+/// The row's money in base-currency units, or `None` when the
+/// section carries none; `Some(None)` marks a non-base row.
+fn row_money(
+    title: &str,
+    fields: &[String],
+    cells: &[String],
+    base_ccy: &str,
+) -> Option<Option<Dec>> {
+    let cols = money_cols(title);
+    if cols.is_empty() {
+        return None;
+    }
+    let ccy = fields
+        .iter()
+        .position(|f| f == "Currency")
+        .and_then(|i| cells.get(i))
+        .map(String::as_str)
+        .unwrap_or("USD");
+    if !base_ccy.is_empty() && ccy != base_ccy {
+        return Some(None);
+    }
+    let mut any = false;
+    let mut sum = Dec::ZERO;
+    for col in cols {
+        if let Some(raw) = fields
+            .iter()
+            .position(|f| f == col)
+            .and_then(|i| cells.get(i))
+        {
+            if let Ok(v) = Dec::parse(raw) {
+                sum = sum + v;
+                any = true;
+            }
+        }
+    }
+    if any { Some(Some(sum)) } else { None }
 }
 
 /// A row's selection key: the `Symbol` column when present and
@@ -88,14 +157,38 @@ fn row_root(title: &str, fields: &[String], cells: &[String]) -> Option<String> 
 impl Selection {
     fn fragment(&self) -> Value {
         let keys: Vec<&String> = self.stats.keys().collect();
+        let mut sel = Dec::ZERO;
+        let mut other = Dec::ZERO;
+        let mut keyless = Dec::ZERO;
+        let mut non_usd = 0usize;
+        for s in self.stats.values() {
+            sel = sel + s.matched_usd;
+            other = other + s.dropped_usd;
+            keyless = keyless + s.unattributed_usd;
+            non_usd += s.non_usd;
+        }
+        let grand = (sel + other) + keyless;
         let stats: Vec<Value> = self
             .stats
             .values()
             .map(|s| {
                 Value::Obj(vec![
-                    ("matched".to_string(), Value::Num(s[0].to_string())),
-                    ("unattributed".to_string(), Value::Num(s[1].to_string())),
-                    ("dropped".to_string(), Value::Num(s[2].to_string())),
+                    ("matched".to_string(), Value::Num(s.matched.to_string())),
+                    (
+                        "unattributed".to_string(),
+                        Value::Num(s.unattributed.to_string()),
+                    ),
+                    ("dropped".to_string(), Value::Num(s.dropped.to_string())),
+                    ("matched_usd".to_string(), Value::num(&s.matched_usd)),
+                    (
+                        "unattributed_usd".to_string(),
+                        Value::num(&s.unattributed_usd),
+                    ),
+                    ("dropped_usd".to_string(), Value::num(&s.dropped_usd)),
+                    (
+                        "non_usd_rows".to_string(),
+                        Value::Num(s.non_usd.to_string()),
+                    ),
                 ])
             })
             .collect();
@@ -109,6 +202,19 @@ impl Selection {
                 Value::Arr(self.unmatched.iter().cloned().map(Value::Str).collect()),
             ),
             (
+                "partition".to_string(),
+                Value::Obj(vec![
+                    ("selected_roots".to_string(), Value::num(&sel)),
+                    ("every_other_root".to_string(), Value::num(&other)),
+                    ("ticker_less".to_string(), Value::num(&keyless)),
+                    ("grand_total".to_string(), Value::num(&grand)),
+                    (
+                        "non_usd_rows_held_out".to_string(),
+                        Value::Num(non_usd.to_string()),
+                    ),
+                ]),
+            ),
+            (
                 "sections".to_string(),
                 Value::Obj(keys.into_iter().cloned().zip(stats).collect()),
             ),
@@ -118,6 +224,8 @@ impl Selection {
                     Value::Str("rows with no selection key pass through to every target as the ticker-less residual: financing, funding and NAV money is in it".to_string()),
                     Value::Str("selection is by root, not product: letters shared by a stock and a futures root select both".to_string()),
                     Value::Str("unmatched_selection lists typed roots that hit no row: a typo is indistinguishable from an untouched ticker otherwise".to_string()),
+                    Value::Str("the partition is exact by construction: components sum to the grand total; every_other_root is the column a typed selection hides".to_string()),
+                    Value::Str("Option Cash Settlements is assignment/exercise cash, not P&L: the P&L of those closings already sits in the root columns".to_string()),
                 ]),
             ),
         ])
@@ -203,6 +311,7 @@ impl Session {
                 unmatched: roots.clone(),
                 roots,
                 stats: BTreeMap::new(),
+                base_ccy: String::new(),
             });
         }
         Ok(s)
@@ -222,6 +331,9 @@ impl Session {
         self.file.bad_rows = csv.bad;
         self.csv = Csv::default();
         self.cur = None;
+        if let Some(sel) = self.sel.as_mut() {
+            sel.base_ccy.clear();
+        }
         for t in self.targets.iter_mut() {
             t.on_file_end();
         }
@@ -279,6 +391,11 @@ impl Session {
             return;
         }
         if rec[0] == "Statement" && rec.len() >= 4 {
+            if rec[2] == "Currency" {
+                if let Some(sel) = self.sel.as_mut() {
+                    sel.base_ccy = rec[3].trim().to_string();
+                }
+            }
             match self.file.meta.iter_mut().find(|e| e.0 == rec[2]) {
                 Some(e) => e.1 = rec[3].clone(),
                 None => self.file.meta.push((rec[2].clone(), rec[3].clone())),
@@ -321,17 +438,47 @@ impl Session {
             file, targets, sel, ..
         } = self;
         if let Some(sel) = sel.as_mut() {
-            let d = &mut sel.stats.entry(title.to_string()).or_default();
-            match row_root(title, &file.sections[i].fields, &rec[2..]) {
-                Some(root) if sel.roots.contains(&root) => {
-                    sel.unmatched.remove(&root);
-                    d[0] += 1;
+            let money = row_money(title, &file.sections[i].fields, &rec[2..], &sel.base_ccy);
+            let root = row_root(title, &file.sections[i].fields, &rec[2..]);
+            let kept = match &root {
+                Some(r) => {
+                    let hit = sel.roots.contains(r);
+                    if hit {
+                        sel.unmatched.remove(r);
+                    }
+                    hit
                 }
-                Some(_) => {
-                    d[2] += 1;
+                None => true,
+            };
+            let d = sel.stats.entry(title.to_string()).or_default();
+            let add = match money {
+                Some(Some(v)) => Some(v),
+                Some(None) => {
+                    d.non_usd += 1;
+                    None
+                }
+                None => None,
+            };
+            match (&root, kept) {
+                (Some(_), true) => {
+                    d.matched += 1;
+                    if let Some(v) = add {
+                        d.matched_usd = d.matched_usd + v;
+                    }
+                }
+                (Some(_), false) => {
+                    d.dropped += 1;
+                    if let Some(v) = add {
+                        d.dropped_usd = d.dropped_usd + v;
+                    }
                     return;
                 }
-                None => d[1] += 1,
+                (None, _) => {
+                    d.unattributed += 1;
+                    if let Some(v) = add {
+                        d.unattributed_usd = d.unattributed_usd + v;
+                    }
+                }
             }
         }
         let row = RowRef {
