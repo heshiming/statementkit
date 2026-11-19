@@ -1,0 +1,16 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 5, 2027, 04:02:11 EST"
+Stock Yield Enhancement Program Securities Lent,Header,Symbol,Quantity,Collateral Amount,Currency,Interest Rate on Customer Collateral (%),SYEP Rate on Customer Collateral (%),Transaction ID,Asset Category
+Stock Yield Enhancement Program Securities Lent,Data,XYZ,1000,100000,USD,4.00,0.50,TX1,Stock
+Stock Yield Enhancement Program Securities Lent Interest Details,Header,Symbol,Start Date,Value Date,Collateral Amount,Interest Rate on Customer Collateral (%),Market-based Rate (%),Interest Paid to Customer
+Stock Yield Enhancement Program Securities Lent Interest Details,Data,XYZ,20260401,20260501,100000,4.00,4.20,328.77
+Stock Yield Enhancement Program Securities Lent Fee Earned Details,Header,Symbol,Start Date,Value Date,Collateral Amount,SYEP Rate on Customer Collateral (%),SYEP Fee Earned by Customer
+Stock Yield Enhancement Program Securities Lent Fee Earned Details,Data,XYZ,20260401,20260501,100000,0.50,41.10
+Stock Yield Enhancement Program Securities Collateral Held at IBKRSS,Header,Price,Quantity,Value,Currency
+Stock Yield Enhancement Program Securities Collateral Held at IBKRSS,Data,100.00,1000,100000,USD
+Interest,Header,Currency,Account,Symbol,Date,Description,Amount
+Interest,Data,USD,AAA0000001,,"2026, April",SYEP Interest,369.87
+Interest,Data,USD,AAA0000001,,"2026, April",Credit Interest,12

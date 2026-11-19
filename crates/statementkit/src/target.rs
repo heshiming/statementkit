@@ -75,6 +75,7 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("dividends", || {
             Box::new(targets::dividends::Dividends::new())
         }),
+        ("syep", || Box::new(targets::syep::Syep::new())),
     ]
 }
 

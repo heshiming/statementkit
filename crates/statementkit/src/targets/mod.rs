@@ -13,6 +13,7 @@ pub mod nav_series;
 pub mod quality;
 pub mod realized_stlt;
 pub mod risk_series;
+pub mod syep;
 pub mod symbol_pnl;
 pub mod trades;
 pub mod twr;

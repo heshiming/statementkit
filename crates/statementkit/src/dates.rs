@@ -81,6 +81,19 @@ pub fn month_key(text: &str) -> Option<String> {
     None
 }
 
+/// Days since 1970-01-01 for any IB-printed date form.
+pub fn date_to_days(text: &str) -> Option<i64> {
+    let t = text.trim();
+    let iso = if t.len() >= 8 && t[..8].bytes().all(|b| b.is_ascii_digit()) {
+        format!("{}-{}-{}", &t[..4], &t[4..6], &t[6..8])
+    } else if let Some(iso) = stated_to_iso(t) {
+        iso
+    } else {
+        t.to_string()
+    };
+    iso_to_days(&iso)
+}
+
 /// Days since 1970-01-01 for an ISO `YYYY-MM-DD` date (civil algorithm).
 pub fn iso_to_days(iso: &str) -> Option<i64> {
     let y: i64 = iso.get(0..4)?.parse().ok()?;
