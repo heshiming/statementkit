@@ -110,6 +110,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("ticker-map", || {
             Box::new(targets::ticker_map::TickerMap::new())
         }),
+        ("subset-ledger", || {
+            Box::new(targets::subset_ledger::SubsetLedger::new())
+        }),
     ]
 }
 
