@@ -1,0 +1,14 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"June 1, 2026 - June 30, 2026"
+Statement,Data,When Generated,"July 1, 2026, 04:02:11 EDT"
+Trades,Header,Symbol,Date/Time,Quantity,Trade Price,Notional Value,Comm/Fee,Realized P/L,Code
+Trades,Data,CLU6,"2026-06-10, 10:00:00",2,70,140000,-1,0,C
+Trades,Data,CLV6,"2026-06-11, 10:00:00",-2,69,138000,-1,0,O
+Trades,Data,MESU6,"2026-06-15, 09:31:00",-5,4800,120000,-1,0,C
+Trades,Data,MESV6,"2026-06-16, 09:31:00",5,4850,121250,-1,0,O
+Trades,Data,MESU6,"2026-06-15, 09:35:00",-3,4805,72075,-1,0,C
+Trades,Data,ABC,"2026-06-18, 15:00:00",-100,150,15000,-1,500,C
+Change in Combined NAV,Header,Key,Value
+Change in Combined NAV,Data,Ending Value,200000

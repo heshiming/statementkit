@@ -86,6 +86,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("wash-sales", || {
             Box::new(targets::wash_sales::WashSales::new())
         }),
+        ("roll-yield", || {
+            Box::new(targets::roll_yield::RollYield::new())
+        }),
     ]
 }
 
