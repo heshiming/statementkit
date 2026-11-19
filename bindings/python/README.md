@@ -18,6 +18,18 @@ statementkit.parse_float("1,2")     # raises InvalidInputError
 statementkit.version()              # "0.1.0"
 ```
 
+Streaming session over named targets (ticker selection optional; the
+report then carries a `filter` fragment):
+
+```python
+from statementkit import Session
+with Session(["income", "trades"], tickers=["ABC"]) as s:
+    s.feed(open("statement.csv", "rb").read())
+    s.end_file()
+    text = s.report()        # compact JSON, numeric literals unquoted
+    data = s.report_json()   # floats as Decimal; ints stay int
+```
+
 Errors mirror the ABI status codes: `NullInputError`, `EmptyInputError`,
 `InvalidInputError`, `PanicError` (all `StatementKitError` subclasses with
 `.code`).

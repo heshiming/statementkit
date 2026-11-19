@@ -95,3 +95,77 @@ def parse_float(text: str | None) -> float:
 
 def version() -> str:
     return _lib.sk_version().decode()
+
+
+_lib.sk_session_open.argtypes = [ctypes.POINTER(ctypes.c_void_p), ctypes.POINTER(ctypes.c_char_p),
+                     ctypes.c_size_t, ctypes.POINTER(ctypes.c_char_p),
+                     ctypes.c_size_t, ctypes.c_char_p, ctypes.c_size_t]
+_lib.sk_session_feed.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_size_t]
+_lib.sk_session_end_file.argtypes = [ctypes.c_void_p]
+_lib.sk_session_report_len.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t)]
+_lib.sk_session_report.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_size_t]
+_lib.sk_session_close.argtypes = [ctypes.c_void_p]
+
+
+class Session:
+    """Push streaming session: feed bytes per file, end_file between files.
+
+    report() returns the compact JSON text; report_json() parses it with
+    decimal.Decimal so numeric literals keep full precision."""
+
+    def __init__(self, targets, tickers=()):
+        names = [t.encode("utf-8") for t in targets]
+        tick = [t.encode("utf-8") for t in tickers]
+        arr_n = (ctypes.c_char_p * len(names))(*names) if names else None
+        arr_t = (ctypes.c_char_p * len(tick))(*tick) if tick else None
+        err = ctypes.create_string_buffer(512)
+        handle = ctypes.c_void_p()
+        status = _lib.sk_session_open(ctypes.byref(handle), arr_n, len(names),
+                             arr_t, len(tick), err, 512)
+        if status != 0:
+            error = _ERRORS.get(status, PanicError)
+            raise error(status, err.value.decode("utf-8", "replace") or
+                        f"session open failed with status {status}")
+        self._handle = handle
+
+    def _check(self, status):
+        if status != 0:
+            error = _ERRORS.get(status, PanicError)
+            raise error(status, f"session call failed with status {status}")
+
+    def feed(self, data: bytes):
+        if data:
+            self._check(_lib.sk_session_feed(self._handle, data, len(data)))
+
+    def end_file(self):
+        self._check(_lib.sk_session_end_file(self._handle))
+
+    def report(self) -> str:
+        length = ctypes.c_size_t()
+        self._check(_lib.sk_session_report_len(self._handle, ctypes.byref(length)))
+        buf = ctypes.create_string_buffer(length.value + 1)
+        self._check(_lib.sk_session_report(self._handle, buf, length.value + 1))
+        return buf.value.decode("utf-8")
+
+    def report_json(self, **loads_kwargs):
+        import json
+        from decimal import Decimal
+        loads_kwargs.setdefault("parse_float", Decimal)
+        return json.loads(self.report(), **loads_kwargs)
+
+    def close(self):
+        if self._handle is not None:
+            _lib.sk_session_close(self._handle)
+            self._handle = None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_exc):
+        self.close()
+
+    def __del__(self):
+        try:
+            self.close()
+        except Exception:
+            pass

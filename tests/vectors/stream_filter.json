@@ -1,0 +1,1 @@
+{"targets":["trades"],"tickers":["ABC"],"files":["../fixtures/ticker_m1.csv"],"expect":["\"filter\":{","\"trades\":{","{\"selected_roots\":-96,\"every_other_root\":-1,\"ticker_less\":10015,\"grand_total\":9918,\"non_usd_rows_held_out\":1}"]}

@@ -41,6 +41,12 @@ public final class StatementKit {
 
     private static final MethodHandle PARSE;
     private static final MethodHandle VERSION;
+    private static final MethodHandle SESSION_OPEN;
+    private static final MethodHandle SESSION_FEED;
+    private static final MethodHandle SESSION_END_FILE;
+    private static final MethodHandle SESSION_REPORT_LEN;
+    private static final MethodHandle SESSION_REPORT;
+    private static final MethodHandle SESSION_CLOSE;
 
     static {
         SymbolLookup lib = loadLibrary();
@@ -51,6 +57,30 @@ public final class StatementKit {
         VERSION = linker.downcallHandle(
                 lib.find("sk_version").orElseThrow(StatementKit::unavailable),
                 FunctionDescriptor.of(ValueLayout.ADDRESS));
+SESSION_OPEN = linker.downcallHandle(
+                lib.find("sk_session_open").orElseThrow(StatementKit::unavailable),
+                FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS,
+                        ValueLayout.ADDRESS, ValueLayout.JAVA_LONG,
+                        ValueLayout.ADDRESS, ValueLayout.JAVA_LONG,
+                        ValueLayout.ADDRESS, ValueLayout.JAVA_LONG));
+        SESSION_FEED = linker.downcallHandle(
+                lib.find("sk_session_feed").orElseThrow(StatementKit::unavailable),
+                FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS,
+                        ValueLayout.ADDRESS, ValueLayout.JAVA_LONG));
+        SESSION_END_FILE = linker.downcallHandle(
+                lib.find("sk_session_end_file").orElseThrow(StatementKit::unavailable),
+                FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
+        SESSION_REPORT_LEN = linker.downcallHandle(
+                lib.find("sk_session_report_len").orElseThrow(StatementKit::unavailable),
+                FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS,
+                        ValueLayout.ADDRESS));
+        SESSION_REPORT = linker.downcallHandle(
+                lib.find("sk_session_report").orElseThrow(StatementKit::unavailable),
+                FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS,
+                        ValueLayout.ADDRESS, ValueLayout.JAVA_LONG));
+        SESSION_CLOSE = linker.downcallHandle(
+                lib.find("sk_session_close").orElseThrow(StatementKit::unavailable),
+                FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS));
     }
 
     private StatementKit() {}
@@ -130,6 +160,102 @@ public final class StatementKit {
             return ptr.reinterpret(64).getString(0, StandardCharsets.UTF_8);
         } catch (Throwable t) {
             throw new PanicException();
+        }
+    }
+
+    /**
+     * Push streaming session: feed bytes per file, endFile between
+     * files, report returns the compact JSON text (numeric literals
+     * unquoted; parse with a BigDecimal-preserving reader).
+     */
+    public static final class Session implements AutoCloseable {
+
+        public static class SessionException extends RuntimeException {
+            public final int code;
+
+            SessionException(int code, String message) {
+                super(message);
+                this.code = code;
+            }
+        }
+
+        private MemorySegment p;
+
+        public Session(String[] targets, String[] tickers) {
+            try (Arena arena = Arena.ofConfined()) {
+                MemorySegment names = allocStrings(arena, targets);
+                MemorySegment ticks = allocStrings(arena, tickers);
+                MemorySegment err = arena.allocate(512);
+                MemorySegment out = arena.allocate(ValueLayout.ADDRESS);
+                int st = call(SESSION_OPEN, out, names, (long) targets.length,
+                        ticks, (long) tickers.length, err, 512L);
+                if (st != SK_OK) {
+                    throw new SessionException(st,
+                            err.reinterpret(512).getString(0, StandardCharsets.UTF_8));
+                }
+                p = out.get(ValueLayout.ADDRESS, 0);
+            }
+        }
+
+        private static MemorySegment allocStrings(Arena arena, String[] items) {
+            if (items.length == 0) {
+                return MemorySegment.NULL;
+            }
+            MemorySegment arr = arena.allocate(
+                    items.length * ValueLayout.ADDRESS.byteSize());
+            for (int i = 0; i < items.length; i++) {
+                arr.setAtIndex(ValueLayout.ADDRESS, i, arena.allocateFrom(items[i]));
+            }
+            return arr;
+        }
+
+        /** Feed a chunk of the current file. */
+        public void feed(byte[] data) {
+            if (data.length == 0) {
+                return;
+            }
+            try (Arena arena = Arena.ofConfined()) {
+                MemorySegment buf = arena.allocate(data.length);
+                buf.asByteBuffer().put(data);
+                check(call(SESSION_FEED, p, buf, (long) data.length), "feed");
+            }
+        }
+
+        public void endFile() {
+            check(call(SESSION_END_FILE, p), "end_file");
+        }
+
+        public String report() {
+            try (Arena arena = Arena.ofConfined()) {
+                MemorySegment lenOut = arena.allocate(ValueLayout.JAVA_LONG);
+                check(call(SESSION_REPORT_LEN, p, lenOut), "report_len");
+                long len = lenOut.get(ValueLayout.JAVA_LONG, 0);
+                MemorySegment buf = arena.allocate(len + 1);
+                check(call(SESSION_REPORT, p, buf, len + 1), "report");
+                return buf.reinterpret(len + 1).getString(0, StandardCharsets.UTF_8);
+            }
+        }
+
+        @Override
+        public void close() {
+            if (p != null) {
+                call(SESSION_CLOSE, p);
+                p = null;
+            }
+        }
+
+        private static int call(MethodHandle h, Object... args) {
+            try {
+                return (int) h.invokeWithArguments(args);
+            } catch (Throwable t) {
+                throw new PanicException();
+            }
+        }
+
+        private static void check(int status, String what) {
+            if (status != SK_OK) {
+                throw new SessionException(status, what + " failed with status " + status);
+            }
         }
     }
 }

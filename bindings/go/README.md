@@ -10,6 +10,17 @@ _, err = statementkit.ParseFloat("1,2")     // ErrInvalid
 statementkit.Version()                      // "0.1.0"
 ```
 
+Streaming session over named targets (ticker selection optional):
+
+```go
+s, err := statementkit.NewSession([]string{"income", "trades"}, []string{"ABC"})
+if err != nil { panic(err) } // unknown target: error carries the ABI message
+defer s.Close()
+s.Feed(data)
+s.EndFile()
+text, err := s.Report() // compact JSON; decode with json.Number for exact text
+```
+
 Sentinels: `ErrEmpty`, `ErrInvalid`, `ErrPanic`, `ErrNullInput`
 (unreachable — Go strings cannot be null).
 

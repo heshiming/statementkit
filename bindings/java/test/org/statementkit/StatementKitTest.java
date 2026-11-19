@@ -55,6 +55,7 @@ public final class StatementKitTest {
             failures++;
             System.out.println("FAIL only " + rows + " vector rows");
         }
+        failures += streamVectors(Path.of(args[0]).getParent());
         System.out.println("java: " + rows + " rows, " + failures + " failure(s)");
         System.exit(failures == 0 ? 0 : 1);
     }
@@ -75,5 +76,72 @@ public final class StatementKitTest {
         if (!ok) {
             throw new AssertionError(kind + " [" + input + "]: " + detail);
         }
+    }
+    private static int streamVectors(Path dir) {
+        int failures = 0;
+        for (String name : new String[] {"stream.json", "stream_filter.json"}) {
+            try {
+                String text = Files.readString(dir.resolve(name));
+                String[] targets = jsonStrings(text, "targets").toArray(new String[0]);
+                String[] tickers = jsonStrings(text, "tickers").toArray(new String[0]);
+                List<String> files = jsonStrings(text, "files");
+                List<String> expect = jsonStrings(text, "expect");
+                String report;
+                try (StatementKit.Session s = new StatementKit.Session(targets, tickers)) {
+                    for (String f : files) {
+                        s.feed(Files.readAllBytes(dir.resolve(f)));
+                        s.endFile();
+                    }
+                    report = s.report();
+                }
+                for (String frag : expect) {
+                    if (!report.contains(frag)) {
+                        failures++;
+                        System.out.println("FAIL " + name + " missing "
+                                + frag.substring(0, Math.min(60, frag.length())));
+                    }
+                }
+            } catch (Exception e) {
+                failures++;
+                System.out.println("FAIL " + name + ": " + e);
+            }
+        }
+        return failures;
+    }
+
+    // Extract a JSON string-array value by key; escapes limited to \" \\.
+    private static List<String> jsonStrings(String text, String key) {
+        List<String> out = new java.util.ArrayList<>();
+        String k = "\"" + key + "\":[";
+        int i = text.indexOf(k);
+        if (i < 0) {
+            return out;
+        }
+        i += k.length();
+        StringBuilder sb = new StringBuilder();
+        boolean inStr = false;
+        boolean esc = false;
+        while (i < text.length()) {
+            char c = text.charAt(i++);
+            if (inStr) {
+                if (esc) {
+                    sb.append(c);
+                    esc = false;
+                } else if (c == '\\') {
+                    esc = true;
+                } else if (c == '"') {
+                    out.add(sb.toString());
+                    sb.setLength(0);
+                    inStr = false;
+                } else {
+                    sb.append(c);
+                }
+            } else if (c == '"') {
+                inStr = true;
+            } else if (c == ']') {
+                break;
+            }
+        }
+        return out;
     }
 }

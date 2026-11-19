@@ -9,6 +9,17 @@ double v = StatementKit.parseFloat("12.25");   // throws Empty/Invalid/Panic
 String lib = StatementKit.version();
 ```
 
+Streaming session over named targets (ticker selection optional):
+
+```java
+try (var s = new StatementKit.Session(new String[] {"income", "trades"},
+                                      new String[] {"ABC"})) {
+    s.feed(Files.readAllBytes(Path.of("statement.csv")));
+    s.endFile();
+    String text = s.report(); // compact JSON; numeric literals unquoted
+}
+```
+
 Library discovery: `$STATEMENTKIT_LIB` (path to the `.so`/`.dll`)
 overrides; else the jar-embedded native; else `libstatementkit_c` on
 `java.library.path` (absolute path required).

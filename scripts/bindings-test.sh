@@ -10,12 +10,13 @@ cargo build --release -p statementkit-c --target wasm32-unknown-unknown
 
 echo '== python (ctypes) =='
 python3 bindings/python/test_parse_float.py
+python3 bindings/python/test_stream.py
 
 echo '== go (cgo) =='
 (cd bindings/go && go test ./...)
 
 echo '== node (raw wasm) =='
-(cd bindings/node && node --test test/parse_float.test.js)
+(cd bindings/node && node --test test/parse_float.test.js test/stream.test.js)
 
 echo '== java (Panama FFM) =='
 if command -v javac >/dev/null 2>&1 && \

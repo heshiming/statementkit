@@ -13,6 +13,17 @@ await parseFloat("12.25");   // 12.25
 await parseFloat("1,2");     // rejects with InvalidInputError
 ```
 
+Streaming session over named targets (ticker selection optional):
+
+```js
+import { openSession } from "statementkit";
+const s = await openSession(["income", "trades"], ["ABC"]);
+s.feed(new Uint8Array(fs.readFileSync("statement.csv")));
+s.endFile();
+const text = s.report(); // compact JSON; parse with a lossless reader
+s.close();
+```
+
 `lib/index.d.ts` carries the TypeScript types; hand-written while the API
 is two functions, codegen (wasm-bindgen) arrives with a bigger surface.
 Errors are the `StatementKitError` subclasses; WASM traps (possible only
