@@ -1,0 +1,14 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"October 13, 2026 - October 13, 2026"
+Statement,Data,When Generated,"October 14, 2026, 04:02:11 EST"
+Base Currency Exchange Rate,Header,Exchange Rate,Currency
+Base Currency Exchange Rate,Data,1.10,EUR
+Trades,Header,Currency,Symbol,Date/Time,Quantity,Trade Price,Realized P/L,Comm/Fee,Code
+Trades,Data,USD,ABC,"2026-10-13, 10:00:00",100,50,100,-2,C
+Trades,Data,EUR,ABC,"2026-10-13, 11:00:00",10,50,25,-1,C
+Open Positions,Header,Currency,Symbol,Quantity,Price,Value
+Open Positions,Data,USD,ABC,100,52,5200
+Change in Combined NAV,Header,Field,Value
+Change in Combined NAV,Data,Ending Value,1000000

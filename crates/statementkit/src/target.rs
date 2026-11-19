@@ -113,6 +113,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("subset-ledger", || {
             Box::new(targets::subset_ledger::SubsetLedger::new())
         }),
+        ("subset-calendar", || {
+            Box::new(targets::subset_calendar::SubsetCalendar::new())
+        }),
     ]
 }
 

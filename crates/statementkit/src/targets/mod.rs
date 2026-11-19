@@ -22,6 +22,7 @@ pub mod realized_stlt;
 pub mod risk_series;
 pub mod roll_yield;
 pub mod subaccount_ledger;
+pub mod subset_calendar;
 pub mod subset_ledger;
 pub mod syep;
 pub mod symbol_pnl;
