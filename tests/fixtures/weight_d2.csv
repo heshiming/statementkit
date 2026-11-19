@@ -1,0 +1,14 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"September 9, 2026"
+Statement,Data,When Generated,"September 10, 2026, 03:01:02 EDT"
+Base Currency Exchange Rate,Header,Currency,Exchange Rate
+Base Currency Exchange Rate,Data,EUR,1.11
+Open Positions,Header,Symbol,Quantity,Close Price,Mult,Value,Cost Basis,Unrealized P/L,Asset Category,Currency,DataDiscriminator
+Open Positions,Data,STK1,1000,250.00,1,250000,-240000,10000,Stock,USD,Summary
+Open Positions,Data,ZZZ,5,-100.00,1,-500,0,-500,Unknown,JPY,Summary
+Net Asset Value,Header,Asset Class,Prior Total,Current Total,Change,Change%
+Net Asset Value,Data,Cash,985500.00,750500.00,-235000.00,-23.85
+Net Asset Value,Data,Stock,235500.00,250000.00,14500.00,6.16
+Net Asset Value,Data,Total,985500.00,1000500.00,15000.00,1.52

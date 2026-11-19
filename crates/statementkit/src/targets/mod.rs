@@ -6,4 +6,5 @@ pub mod nav_series;
 pub mod risk_series;
 pub mod trades;
 pub mod twr;
+pub mod weights;
 pub mod xirr;
