@@ -2,6 +2,7 @@
 
 pub mod alloc;
 pub mod attribution;
+pub mod borrow_fees;
 pub mod cash_coverage;
 pub mod interest;
 pub mod leverage;

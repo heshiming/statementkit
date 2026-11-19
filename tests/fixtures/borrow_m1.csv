@@ -1,0 +1,12 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"March 1, 2026 - March 31, 2026"
+Statement,Data,When Generated,"April 1, 2026, 04:02:11 EDT"
+Borrow Fee Details,Header,Currency,Value Date,Symbol,Quantity,Price,Value,Fee Rate (%),Borrow Fee,Code
+Borrow Fee Details,Data,USD,2026-03-02,SHORT1,1000,20.00,20000,1.8,1.00,
+Borrow Fee Details,Data,USD,2026-03-03,SHORT1,1200,20.00,24000,1.8,1.20,
+Borrow Fee Details,Data,USD,2026-03-02,SHORT2,500,10.00,5000,3.6,0.50,
+Borrow Fee Details,Data,USD,2026-03-02,EURX,200,30.00,6000,2.0,0.40,
+Borrow Fee Details,Data,EUR,2026-03-02,EURO,100,30.00,3000,2.0,0.20,
+Borrow Fee Details,Data,USD,Total,Total,,,,,3.10,

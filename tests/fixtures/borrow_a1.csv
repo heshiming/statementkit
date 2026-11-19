@@ -1,0 +1,12 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"2025 Annual Summary"
+Statement,Data,When Generated,"January 5, 2026, 04:02:11 EDT"
+Interest,Header,Date,Description,Amount,Currency
+Interest,Data,2025-01-31,"USD Borrow Fees for Jan-2025",-50.00,USD
+Interest,Data,2025-02-28,"USD Borrow Fees for Feb-2025",-70.00,USD
+Interest,Data,2025-01-15,"Broker Interest Paid",-10.00,USD
+Borrow Fee Details,Header,Currency,Value Date,Symbol,Quantity,Price,Value,Fee Rate (%),Borrow Fee,Code
+Borrow Fee Details,Data,USD,2025-01-06,SHORT1,1000,20.00,20000,1.8,20.00,
+Borrow Fee Details,Data,USD,Total,Total,,,,,20.00,
