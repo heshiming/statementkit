@@ -51,6 +51,7 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("twr", || Box::new(targets::twr::Twr::new())),
         ("xirr", || Box::new(targets::xirr::Xirr::new())),
         ("interest", || Box::new(targets::interest::Interest::new())),
+        ("leverage", || Box::new(targets::leverage::Leverage::new())),
         ("cash-coverage", || {
             Box::new(targets::cash_coverage::CashCoverage::new())
         }),

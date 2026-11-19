@@ -1,0 +1,20 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"March 1, 2026 - March 31, 2026"
+Statement,Data,When Generated,"April 2, 2026, 04:00:00 EDT"
+Base Currency Exchange Rate,Header,Currency,Exchange Rate
+Base Currency Exchange Rate,Data,EUR,1.10
+Open Positions,Header,Symbol,Quantity,Close Price,Mult,Value,Cost Basis,Unrealized P/L,Asset Category,Currency,DataDiscriminator
+Open Positions,Data,STK1,100,250.00,1,25000,-24000,1000,Stock,USD,Summary
+Open Positions,Data,STK2,-200,100.00,1,-20000,21000,-1000,Stock,USD,Summary
+Open Positions,Data,EURX,100,50.00,1,5000,-4800,200,Stock,EUR,Summary
+Open Positions,Data,SPY 18SEP26 40 P,-10,40.00,100,-40000,38000,-2000,Options,USD,Summary
+Open Positions,Data,MNK,3,5000.00,50,750000,-745000,5000,Futures,USD,Summary
+Cash Report,Header,Currency Summary,Currency,Base Currency,Total,Securities,Futures,Paxos,,,
+Cash Report,Data,Total Cash Base Currency,USD,USD,274000.00,274000.00,0.00,0.00,,,
+Forex Balances,Header,Currency,Long Qty,Short Qty,Net Qty,Value in USD,Unrealized P/L in USD
+Forex Balances,Data,EUR,5000,0,5000,5500.00,50.00
+Net Asset Value,Header,Asset Class,Prior Total,Current Total,Change,Change%
+Net Asset Value,Data,Cash,900000.00,279500.00,-620500.00,-68.94
+Net Asset Value,Data,Total,900000.00,1000000.00,100000.00,11.11
