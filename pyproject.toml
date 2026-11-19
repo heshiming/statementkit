@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "statementkit"
-version = "0.1.0" # keep in step with the Cargo workspace version
+version = "0.2.0" # keep in step with the Cargo workspace version
 description = "Parse brokerage statement content into actionable numbers. Independent tool. Not affiliated with or endorsed by Interactive Brokers LLC."
 readme = "README.md"
 license = "Apache-2.0"

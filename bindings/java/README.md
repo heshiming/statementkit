@@ -36,7 +36,7 @@ Shared-vector drill — loads the jar's embedded native, no env needed:
 
 ```sh
 java --enable-native-access=ALL-UNNAMED \
-    -cp bindings/java/target/statementkit-0.1.0.jar:bindings/java/target/test-classes \
+    -cp bindings/java/target/statementkit-0.2.0.jar:bindings/java/target/test-classes \
     org.statementkit.StatementKitTest tests/vectors/parse_float.tsv
 ```
 

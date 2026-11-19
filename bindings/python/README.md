@@ -15,7 +15,7 @@ LLC.
 import statementkit
 statementkit.parse_float("12.25")   # 12.25
 statementkit.parse_float("1,2")     # raises InvalidInputError
-statementkit.version()              # "0.1.0"
+statementkit.version()              # "0.2.0"
 ```
 
 Streaming session over named targets (ticker selection optional; the

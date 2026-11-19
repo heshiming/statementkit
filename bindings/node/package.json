@@ -1,6 +1,6 @@
 {
   "name": "statementkit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Parse brokerage statement content into actionable numbers (WASM build of the Rust core)",
   "license": "Apache-2.0",
   "type": "module",

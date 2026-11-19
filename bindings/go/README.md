@@ -7,7 +7,7 @@ relative flags, so a plain `go test ./...` works right after
 ```go
 v, err := statementkit.ParseFloat("12.25")  // 12.25, nil
 _, err = statementkit.ParseFloat("1,2")     // ErrInvalid
-statementkit.Version()                      // "0.1.0"
+statementkit.Version()                      // "0.2.0"
 ```
 
 Streaming session over named targets (ticker selection optional):
