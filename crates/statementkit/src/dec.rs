@@ -33,6 +33,11 @@ impl Dec {
         self.0
     }
 
+    /// Lossy conversion for ratio math (volatility, drawdown) only.
+    pub fn to_f64(self) -> f64 {
+        self.0 as f64 / UNIT as f64
+    }
+
     /// Parse a statement numeric cell.
     ///
     /// Accepted: optional sign, digits with `,` thousands separators, at

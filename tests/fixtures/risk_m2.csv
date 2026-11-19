@@ -1,0 +1,9 @@
+Statement,Data,Account ID,DEMO1
+Statement,Data,Period,"February 1, 2026 - February 28, 2026"
+Statement,Data,Base Currency,USD
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,2000000.00
+Change in NAV,Data,Mark-to-Market,50000.00
+Change in NAV,Data,Deposits & Withdrawals,250000.00
+Change in NAV,Data,Ending Value,1800000.00
+Change in NAV,Data,Total,-200000.00

@@ -2,3 +2,4 @@
 
 pub mod attribution;
 pub mod nav_series;
+pub mod risk_series;
