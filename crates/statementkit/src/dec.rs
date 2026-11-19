@@ -108,6 +108,13 @@ impl std::ops::Sub for Dec {
     }
 }
 
+impl std::ops::Neg for Dec {
+    type Output = Dec;
+    fn neg(self) -> Dec {
+        Dec(-self.0)
+    }
+}
+
 impl std::ops::Mul for Dec {
     type Output = Dec;
     /// Product rounded to the 1e8 scale (half away from zero). Used for

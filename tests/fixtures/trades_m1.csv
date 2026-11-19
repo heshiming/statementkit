@@ -1,0 +1,21 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"September 1, 2026 - September 30, 2026"
+Statement,Data,When Generated,"October 1, 2026, 04:02:11 EDT"
+Trades,Header,Symbol,Date/Time,Quantity,Proceeds,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,SPY,"2026-09-02, 10:00:00",100,-10000,-10,10000,0,O
+Trades,Data,SPY,"2026-09-02, 10:00:00",50,-5000,-5,5000,0,O;P
+Trades,Data,SPY,"2026-09-02, 14:00:00",-150,15300,-25,-15000,275,C
+Trades,Data,SPY,"2026-09-03, 14:00:00",-50,5050,-10,-5000,40,C
+Trades,Data,AAPL,"2026-09-04, 09:45:00",10,-1000,-2,1000,12,O
+Trades,Data,MSFT,"2026-09-05, 12:00:00",200,-20000,0,20000,0,IA
+Trades,Header,Symbol,Date/Time,Quantity,Notional Value,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,ES,"2026-09-06, 18:30:00",1,-50000,0,50000,0,O
+Trades,Data,ES,"2026-09-07, 09:35:00",-1,50500,0,-50000,500,C
+Trades,Header,Symbol,Date/Time,Quantity,Proceeds,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,SPY 18SEP26 650 C,"2026-09-08, 09:40:00",10,-2000,-2,2000,0,O
+Trades,Data,SPY 18SEP26 650 C,"2026-09-19, 16:20:00",-10,0,0,-2000,-2000,C;Ep
+Trades,Header,Symbol,Date/Time,Quantity,Proceeds,Comm in USD,MTM in USD,Code
+Trades,Data,EUR,"2026-09-09, 15:00:00",1000,1000,-2,1,"O"
+Trades,Data,EUR,"2026-09-09, 15:30:00",-1000,-1002,-2,0,"C"
