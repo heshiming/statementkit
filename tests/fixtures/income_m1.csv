@@ -1,0 +1,29 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 5, 2027, 04:02:11 EST"
+Dividends,Header,Currency,Account,Symbol,Date,Description,Amount
+Dividends,Data,USD,AAA0000001,FOO,20260315,CASH DIVIDEND,40
+Dividends,Data,USD,AAA0000001,BAR,20260615,CASH DIVIDEND,20
+Dividends,Data,USD,BBB0000002,FOO,20251215,CASH DIVIDEND,11
+Withholding Tax,Header,Currency,Account,Symbol,Date,Description,Amount
+Withholding Tax,Data,USD,AAA0000001,FOO,20260315,WITHHOLDING TAX,-4
+Interest,Header,Currency,Account,Symbol,Date,Description,Amount
+Interest,Data,USD,AAA0000001,,"2026, March",Credit Interest,12
+Interest,Data,USD,AAA0000001,,"2026, March",Debit Interest,-30
+Interest,Data,USD,AAA0000001,,"2026, March",Borrow Fees,-4
+Interest,Data,USD,AAA0000001,,"2026, March",SYEP Interest,5
+Interest,Data,USD,AAA0000001,,"2026, March",Insured Deposit Credit Interest,7
+Trades,Header,Symbol,Date/Time,Quantity,Proceeds,Comm/Fee,Basis,Realized P/L,Code,Comm in USD
+Trades,Data,FOO,"2026-03-02, 10:00:00",100,-1000,-2,1000,0,O,-2
+Trades,Data,FOO,"2026-03-03, 10:00:00",-100,1050,-3,-1000,47,C,-3
+Change in Dividend Accruals,Header,Symbol,Date,Pay Date,Ex Date,Amount,Quantity,Tax,Net Amount,Gross Amount,Type
+Change in Dividend Accruals,Data,FOO,20260320,20260325,20260315,-10,1000,-10,90,100,CA
+Interest Accruals,Header,Currency,Date,Accrued Interest Paid,Accrued Interest Received
+Interest Accruals,Data,USD,"2026, March",-1,2
+Stock Yield Enhancement Program Interest Details,Header,Symbol,Date,Quantity,Interest Rate,Interest Paid to Customer
+Stock Yield Enhancement Program Interest Details,Data,XYZ,20260630,10000,0.03,9
+Borrow Fee Details,Header,Symbol,Description,Date,Quantity,Date,Finance Price,Mkt,Borrow Fee Rate %,Borrow Fee,Borrow Quantity
+Borrow Fee Details,Data,SMR,"Shortable Shares",20260302,279530,20260302,0.56,279530,0.75,4.32,0
+Borrow Fee Details,Data,Total,"",20260302,0,20260302,0,0,0,4.61,0

@@ -32,6 +32,28 @@ pub fn stated_to_iso(text: &str) -> Option<String> {
     Some(format!("{year:04}-{month:02}-{day:02}"))
 }
 
+/// The year of any IB-printed date form: `20260315`,
+/// `2026-03-15[, time]`, `March 15, 2026`, `2026, March`.
+pub fn year(text: &str) -> Option<String> {
+    let t = text.trim();
+    let four = |s: &str| s.len() == 4 && s.bytes().all(|b| b.is_ascii_digit());
+    if t.len() >= 8 && t[..8].bytes().all(|b| b.is_ascii_digit()) {
+        return Some(t[..4].to_string());
+    }
+    if four(&t[..t.len().min(4)]) && t.as_bytes().get(4) == Some(&b'-') {
+        return Some(t[..4].to_string());
+    }
+    if let Some(iso) = stated_to_iso(t) {
+        return Some(iso[..4].to_string());
+    }
+    if let Some(head) = t.split_once(", ").map(|(h, _)| h) {
+        if four(head) {
+            return Some(head.to_string());
+        }
+    }
+    None
+}
+
 /// Days since 1970-01-01 for an ISO `YYYY-MM-DD` date (civil algorithm).
 pub fn iso_to_days(iso: &str) -> Option<i64> {
     let y: i64 = iso.get(0..4)?.parse().ok()?;
