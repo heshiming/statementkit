@@ -69,6 +69,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("realized-stlt", || {
             Box::new(targets::realized_stlt::RealizedStlt::new())
         }),
+        ("symbol-pnl", || {
+            Box::new(targets::symbol_pnl::SymbolPnl::new())
+        }),
     ]
 }
 
