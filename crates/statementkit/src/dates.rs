@@ -86,6 +86,8 @@ pub fn date_to_days(text: &str) -> Option<i64> {
     let t = text.trim();
     let iso = if t.len() >= 8 && t[..8].bytes().all(|b| b.is_ascii_digit()) {
         format!("{}-{}-{}", &t[..4], &t[4..6], &t[6..8])
+    } else if t.len() >= 10 && t.as_bytes()[4] == b'-' && t.as_bytes()[7] == b'-' {
+        t[..10].to_string()
     } else if let Some(iso) = stated_to_iso(t) {
         iso
     } else {

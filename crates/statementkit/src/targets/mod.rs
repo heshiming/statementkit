@@ -19,5 +19,6 @@ pub mod syep;
 pub mod symbol_pnl;
 pub mod trades;
 pub mod twr;
+pub mod wash_sales;
 pub mod weights;
 pub mod xirr;

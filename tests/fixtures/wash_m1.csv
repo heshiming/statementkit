@@ -1,0 +1,15 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - June 30, 2026"
+Statement,Data,When Generated,"July 1, 2026, 04:02:11 EDT"
+Trades,Header,Symbol,Date/Time,Quantity,Proceeds,Comm/Fee,Basis,Realized P/L,Code
+Trades,Data,WSA,"2026-03-05, 10:00:00",-100,8800,-2,-10000,-1200,C
+Trades,Data,WSA,"2026-03-20, 10:00:00",60,-5400,-1,5400,0,O
+Trades,Data,WSA,"2026-02-10, 10:00:00",60,-5400,-1,5400,0,O
+Trades,Data,WSB,"2026-03-05, 10:00:00",-100,9000,-2,-10000,-1000,C
+Trades,Data,WSB,"2026-04-04, 10:00:00",40,-3700,-1,3700,0,O
+Trades,Data,WSB,"2026-04-20, 10:00:00",50,-4600,-1,4600,0,O
+Trades,Data,WSC,"2026-03-06, 10:00:00",-100,10300,-2,-10000,300,C
+Trades,Data,WSD,"2026-06-01, 10:00:00",-50,4500,-1,-5000,-500,C
+Trades,Data,WSD,"2026-06-05, 10:00:00",100,0,0,0,0,A

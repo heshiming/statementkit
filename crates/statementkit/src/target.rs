@@ -83,6 +83,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("fx-exposure", || {
             Box::new(targets::fx_exposure::FxExposure::new())
         }),
+        ("wash-sales", || {
+            Box::new(targets::wash_sales::WashSales::new())
+        }),
     ]
 }
 
