@@ -1,0 +1,16 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"August 5, 2026"
+Statement,Data,When Generated,"August 6, 2026, 06:12:33 EST"
+Base Currency Exchange Rate,Header,Currency,Rate
+Base Currency Exchange Rate,Data,JPY,0.0068
+Base Currency Exchange Rate,Data,GBP,1.27
+Base Currency Exchange Rate,Data,CAD,0.73
+Interest,Header,Currency,Date,Description,Amount
+Interest,Data,USD,"August 5, 2026",Credit Interest,50.00
+Interest,Data,USD,"August 5, 2026",Borrow Fees,(12.00)
+Interest,Data,JPY,"August 5, 2026",Credit Interest,"4,500"
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,"6,000,000.00"
+Change in NAV,Data,Ending Value,"6,010,000.00"

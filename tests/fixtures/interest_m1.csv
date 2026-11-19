@@ -1,0 +1,25 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"August 1, 2026 - August 31, 2026"
+Statement,Data,When Generated,"September 2, 2026, 04:02:11 EDT"
+Interest,Header,Currency,Date,Description,Amount
+Interest,Data,USD,"August 5, 2026",Credit Interest,120.00
+Interest,Data,JPY,"August 5, 2026",Credit Interest,"4,500"
+Interest,Data,GBP,"August 5, 2026",Debit Interest,(30.00)
+Interest,Data,CAD,"August 5, 2026",Debit Interest,(5.00)
+Interest,Data,USD,"August 31, 2026",Credit Interest from AAA0000002,(200.00)
+Interest,Data,ZAR,"August 5, 2026",Credit Interest,7.00
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,"6,000,000.00"
+Change in NAV,Data,Ending Value,"6,010,200.00"
+Change in NAV,Data,Interest,108.90
+Change in NAV,Data,Change in Interest Accruals,-47.00
+Interest Accruals,Header,Currency,Field Name,Field Value
+Interest Accruals,Data,Base Currency Summary,Starting Accrual Balance,500.00
+Interest Accruals,Data,Base Currency Summary,Interest Accrued,150.00
+Interest Accruals,Data,Base Currency Summary,Accrual Reversal,-150.00
+Interest Accruals,Data,Base Currency Summary,FX Translation,3.00
+Interest Accruals,Data,Base Currency Summary,Ending Accrual Balance,503.00
+Interest Accruals,Data,JPY,Ending Accrual Balance,"680,000"
+Interest Accruals,Data,JPY,Ending Accrual Balance in USD,4624.00

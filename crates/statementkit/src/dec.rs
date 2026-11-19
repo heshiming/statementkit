@@ -24,6 +24,7 @@ pub struct Dec(i128);
 
 impl Dec {
     pub const ZERO: Dec = Dec(0);
+    pub const ONE: Dec = Dec(UNIT);
 
     pub fn scaled(v: i128) -> Dec {
         Dec(v)
@@ -104,6 +105,18 @@ impl std::ops::Sub for Dec {
     type Output = Dec;
     fn sub(self, other: Dec) -> Dec {
         Dec(self.0 - other.0)
+    }
+}
+
+impl std::ops::Mul for Dec {
+    type Output = Dec;
+    /// Product rounded to the 1e8 scale (half away from zero). Used for
+    /// FX conversion; inputs stay exact, only the product rounds.
+    fn mul(self, other: Dec) -> Dec {
+        let neg = (self.0 < 0) != (other.0 < 0);
+        let p = self.0.unsigned_abs() * other.0.unsigned_abs();
+        let q = ((p + (UNIT as u128) / 2) / (UNIT as u128)) as i128;
+        Dec(if neg { -q } else { q })
     }
 }
 
