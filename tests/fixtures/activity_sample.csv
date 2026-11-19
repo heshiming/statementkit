@@ -1,0 +1,19 @@
+Statement,Header,Configuration,Account,Currency,Period
+Statement,Data,Account,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Base Currency,USD
+Statement,Data,Period,"January 1, 2024 - December 31, 2024"
+Trades,Header,Data/Time,Currency,Symbol,Buy/Sell,Quantity,Trade Price,Proceeds,Commissions/Fee,Realized P/L,
+Trades,Data,"2024-01-03, 09:30:00",USD,AAA,BUY,100,10.00,"(1,000.00)","(1.25)",0.00
+Trades,Data,"2024-01-03, 15:45:00",USD,AAA,SELL,100,11.50,"1,150.00","(1.25)",147.50
+Trades,Data,"2024-02-05, 10:00:00",USD,BBB,BUY,50,20.00,"(1,000.00)",NaN,
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Total,1234.56
+Change in NAV,Data,Interest,"(12.34)"
+Interest,Header,Currency,Date,Description,Amount
+Interest,Data,USD,2024-01-31,Credit Interest,120.00
+Interest,Data,JPY,2024-01-31,Credit Interest,4500
+Interest,Data,USD,2024-01-31,"Fees, other","(3.50)"
+Interest,Data,EUR,2024-01-31,"Crédit Agricole deposit",7.25
+Open Positions,Header,Symbol,Quantity,Close Price,Value,Cost Basis,Currency
+Open Positions,Data,AAA,100,11.50,"1,150.00","1,000.00",USD

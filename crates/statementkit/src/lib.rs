@@ -1,10 +1,16 @@
 //! statementkit core: parsing brokerage statement content into numbers.
 //!
 //! Pure functions only — no I/O, no FFI types. All parsing and derivation
-//! logic lives in this crate; bindings are thin shells over it.
+//! logic lives in this crate; bindings are thin shells over it. Streaming
+//! entry points take caller-fed byte chunks; the crate opens no files.
 //!
 //! Independent tool. Not affiliated with or endorsed by Interactive
 //! Brokers LLC.
+
+pub mod csv;
+pub mod session;
+
+pub use session::{FileSummary, SectionSummary, Session};
 
 /// Failure reasons for numeric parsing.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
