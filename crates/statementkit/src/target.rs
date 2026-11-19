@@ -101,6 +101,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("subaccount-ledger", || {
             Box::new(targets::subaccount_ledger::SubaccountLedger::new())
         }),
+        ("capital-base", || {
+            Box::new(targets::capital_base::CapitalBase::new())
+        }),
     ]
 }
 

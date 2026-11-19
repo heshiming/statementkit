@@ -4,6 +4,7 @@ pub mod alloc;
 pub mod attribution;
 pub mod basis_recon;
 pub mod borrow_fees;
+pub mod capital_base;
 pub mod cash_coverage;
 pub mod dividends;
 pub mod family_detected;

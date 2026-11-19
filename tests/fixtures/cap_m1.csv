@@ -1,0 +1,16 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"September 1, 2026 - September 1, 2026"
+Statement,Data,When Generated,"September 2, 2026, 04:02:11 EDT"
+Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Realized P/L,Comm/Fee,Code
+Trades,Data,AAA0000001,ABC,"2026-09-01, 10:00:00",-100,60,1000,-10,C
+Dividends,Header,Account,Symbol,Ex Date,Amount,Description
+Dividends,Data,AAA0000001,ABC,20260901,100,CASH DIVIDEND
+Interest,Header,Currency,Account,Date,Description,Amount
+Interest,Data,USD,AAA0000001,20260901,CR INT,50
+Borrow Fee Details,Header,Account,Symbol,Currency,Date,Borrow Quantity,Borrow Fee
+Borrow Fee Details,Data,AAA0000001,ABC,USD,20260901,100,-40
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,990000
+Change in NAV,Data,Ending Value,1000000

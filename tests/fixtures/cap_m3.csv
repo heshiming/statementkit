@@ -1,0 +1,12 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"September 3, 2026 - September 3, 2026"
+Statement,Data,When Generated,"September 4, 2026, 04:02:11 EDT"
+Trades,Header,Account,Symbol,Date/Time,Quantity,Trade Price,Realized P/L,Comm/Fee,Code
+Trades,Data,AAA0000001,GHI,"2026-09-03, 10:00:00",-80,35,800,0,C
+Borrow Fee Details,Header,Account,Symbol,Currency,Date,Borrow Quantity,Borrow Fee
+Borrow Fee Details,Data,AAA0000001,GHI,USD,20260903,80,-200
+Change in Combined NAV,Header,Field,Value
+Change in NAV,Data,Starting Value,1100000
+Change in NAV,Data,Ending Value,900000
