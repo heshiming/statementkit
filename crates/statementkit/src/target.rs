@@ -66,6 +66,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
         ("trades", || Box::new(targets::trades::Trades::new())),
         ("quality", || Box::new(targets::quality::Quality::new())),
         ("income", || Box::new(targets::income::Income::new())),
+        ("realized-stlt", || {
+            Box::new(targets::realized_stlt::RealizedStlt::new())
+        }),
     ]
 }
 

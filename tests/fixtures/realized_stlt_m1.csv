@@ -1,0 +1,9 @@
+Statement,Header,Account ID,Currency,Period,When Generated
+Statement,Data,Account ID,AAA0000001
+Statement,Data,Currency,USD
+Statement,Data,Period,"January 1, 2026 - December 31, 2026"
+Statement,Data,When Generated,"January 5, 2027, 04:02:11 EST"
+Realized & Unrealized Performance Summary,Header,Symbol,Realized S/T Profit,Realized S/T Loss,Realized L/T Profit,Realized L/T Loss,Unrealized S/T Profit,Unrealized S/T Loss,Unrealized L/T Profit,Unrealized L/T Loss,Asset Category,Currency
+Realized & Unrealized Performance Summary,Data,FOO,12000,-3000,40000,0,500,-100,0,0,Stock,USD
+Realized & Unrealized Performance Summary,Data,BAR,100,0,200,-50,0,0,10,-5,Stock,USD
+Realized & Unrealized Performance Summary,Data,Total,999999,999999,999999,999999,999999,999999,999999,999999,Stock,USD
