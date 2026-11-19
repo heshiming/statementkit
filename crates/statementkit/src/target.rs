@@ -80,6 +80,9 @@ pub(crate) fn registry() -> &'static [(&'static str, Factory)] {
             "idle-cash",
             || Box::new(targets::idle_cash::IdleCash::new()),
         ),
+        ("fx-exposure", || {
+            Box::new(targets::fx_exposure::FxExposure::new())
+        }),
     ]
 }
 
