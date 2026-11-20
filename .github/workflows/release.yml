@@ -117,6 +117,9 @@ jobs:
     needs: [javajar, javadrill]
     runs-on: ubuntu-24.04
     environment: maven-central
+    env:
+      CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+      CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
         with:
