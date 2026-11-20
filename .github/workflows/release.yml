@@ -108,7 +108,7 @@ jobs:
           set -euo pipefail
           jar="$(ls java-jar/statementkit-*.jar | grep -v -e sources -e javadoc)"
           mkdir -p out-test
-          javac -d out-test bindings/java/test/org/statementkit/*.java
+          javac -cp "$jar" -d out-test bindings/java/test/org/statementkit/*.java
           java --enable-native-access=ALL-UNNAMED -cp "$jar:out-test" \
               org.statementkit.StatementKitTest tests/vectors/parse_float.tsv
 
@@ -157,7 +157,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          pattern: "*"
+          pattern: "{wheels-*,sdist}"
           path: dist
           merge-multiple: true
       - uses: pypa/gh-action-pypi-publish@release/v1
