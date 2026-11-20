@@ -16,3 +16,6 @@ bindings/java/out/
 bindings/java/native/
 bindings/java/target/
 *.egg-info/
+
+# docs build output
+docs/book/

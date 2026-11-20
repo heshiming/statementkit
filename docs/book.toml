@@ -1,0 +1,13 @@
+[book]
+title = "statementkit"
+description = "Parse brokerage statement content into actionable knowledge and numbers."
+authors = ["heshiming"]
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+
+[output.html]
+smart-punctuation = true
+additional-js = ["footer-notice.js"]

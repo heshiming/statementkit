@@ -28,6 +28,9 @@ bindings/go              cgo over the static lib, plain `go test ./...`
 tests/vectors/           shared ground-truth vectors every binding runs
 scripts/c-smoke.sh       links tests/smoke.c against the static lib, runs it
 scripts/bindings-test.sh builds all targets, runs every binding suite
+scripts/docs.sh          builds the mdBook site (docs/); serve to preview
+docs/                    mdBook site; src is the source of truth, docs/book/
+                         is build output (deployed via .github/workflows/docs.yml)
 ```
 
 All parsing logic lives in the core crate only. A binding that
